@@ -1,4 +1,4 @@
-name: Publish Helm Chart MS Base
+name: publish-chart
 
 on:
   push:
