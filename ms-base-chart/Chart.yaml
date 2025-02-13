@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ms-base-chart
-description: Chart Base to create microservices
+description: Chart Base to create microservices 
 
 type: library
 version: 0.1.0
