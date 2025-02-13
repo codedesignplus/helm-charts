@@ -10,8 +10,18 @@ on:
     paths:
       - 'ms-base-chart/**'
 
+env:
+  IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
+  IS_RC: ${{ github.ref == 'refs/heads/rc' }}
+  IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+  
+
 permissions:
-  contents: write # Permite escribir en el repositorio (para GitHub Pages)
+  contents: write
+  packages: write
+  repository-projects: write
 
 jobs:
   publish:
@@ -42,31 +52,47 @@ jobs:
         with:
           version: '3.12.0' 
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install PyYAML
-        run: pip install pyyaml  # necesario para actualizar la version del chart
-
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Actualizar Chart.yaml
         run: |
             sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" ${{github.workspace}}/ms-base-chart/Chart.yaml
 
-      - name: Package Helm chart
-        run: |
-          helm package ms-base-chart
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.7.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Move chart package to docs directory
-        run: mv ms-base-chart-*.tgz docs/
-
-      - name: Generate index.yaml
-        run: |
-          helm repo index docs --url https://www.codedesignplus.com/helm-charts/
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+          
+      - name: Push tag
+        id: push_tag
+        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true' || env.IS_BETA == 'true'
+        uses: mathieudutour/github-tag-action@v6.1
         with:
-          folder: docs 
+          custom_tag: ${{ steps.git-semver.outputs.new-version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Changelog
+        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        with:
+          configuration: "${{ github.workspace }}/.github/settings/configuration.json"          
+          fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
+          toTag: ${{ steps.git-semver.outputs.new-version-prefix }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create GitHub Release
+        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
+        uses: mikepenz/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ steps.git-semver.outputs.new-version-prefix }}
+          name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
+          body: ${{ steps.build_changelog.outputs.changelog }}
+          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
+          
