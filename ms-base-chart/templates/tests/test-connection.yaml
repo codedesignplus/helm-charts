@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "ms-base-chart.fullname" . }}-test-connection"
+  labels:
+    {{- include "ms-base-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "ms-base-chart.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
