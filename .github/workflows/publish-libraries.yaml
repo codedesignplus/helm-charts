@@ -50,14 +50,6 @@ jobs:
       - name: Install PyYAML
         run: pip install pyyaml  # necesario para actualizar la version del chart
 
-      - name: Update Chart Version
-        id: update-chart-version
-        run: |
-          # Get current date in YYYYMMDD format
-          current_date=$(date +%Y%m%d)
-          # Increment the patch version based on the date
-          NEW_VERSION=$(python .github/scripts/increment_patch_version.py my-istio-library/Chart.yaml ${current_date})
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
 
       - name: Actualizar Chart.yaml
         run: |
@@ -65,16 +57,16 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          helm package my-istio-library
+          helm package ms-base-chart
 
-      - name: Move chart package to docs directory
-        run: mv my-istio-library-*.tgz docs/
+    #   - name: Move chart package to docs directory
+    #     run: mv ms-base-chart-*.tgz docs/
 
-      - name: Generate index.yaml
-        run: |
-          helm repo index docs --url https://${GITHUB_REPOSITORY}.github.io/${{ github.event.repository.name }}/
+    #   - name: Generate index.yaml
+    #     run: |
+    #       helm repo index docs --url https://${GITHUB_REPOSITORY}.github.io/${{ github.event.repository.name }}/
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs # The folder where your website is
+    #   - name: Deploy to GitHub Pages
+    #     uses: JamesIves/github-pages-deploy-action@v4
+    #     with:
+    #       folder: docs 
