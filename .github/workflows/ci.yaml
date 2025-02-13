@@ -64,7 +64,7 @@ jobs:
 
       - name: Generate index.yaml
         run: |
-          helm repo index docs/charts --url https://${GITHUB_REPOSITORY}.github.io/${{ github.event.repository.name }}/charts/
+          helm repo index docs/charts --url https://www.codedesignplus.com/helm-charts/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
