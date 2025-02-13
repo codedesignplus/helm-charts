@@ -7,8 +7,8 @@ on:
       - rc
       - dev
       - feature/*
-    paths:
-      - 'ms-base-chart/**'
+    # paths:
+    #   - 'ms-base-chart/**'
 
 env:
   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
@@ -59,7 +59,7 @@ jobs:
 
       - name: Actualizar Chart.yaml
         run: |
-            sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" ${{github.workspace}}/ms-base-chart/Chart.yaml
+            sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" ${{github.workspace}}/charts/ms-base-chart/Chart.yaml
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
