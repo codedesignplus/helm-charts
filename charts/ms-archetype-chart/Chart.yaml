@@ -1,0 +1,11 @@
+apiVersion: v2
+name: ms-archetype-chart
+description: Deploy a microservice archetype with a base configuration
+type: application 
+version: 0.1.0
+appVersion: "1.16.0"
+dependencies:
+  - name: ms-base-chart
+    version: "0.1.0"
+    #repository: "https://www.codedesignplus.com/helm-charts/"
+    repository: "file://../ms-base-chart"

@@ -1,0 +1,13 @@
+{{- with .Values.virtualService }}
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: {{ .name | default (include "ms-base-chart.fullname" $) }}
+  {{- with .metadata }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+spec:
+  {{- with .spec }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}
