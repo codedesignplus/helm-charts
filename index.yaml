@@ -3,6 +3,16 @@ entries:
   ms-base:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-02-17T21:05:11.967654809Z"
+    description: A Helm chart for Kubernetes
+    digest: ea295eca891957446fab05c529eb6a3e1d41b0d0b30f605dcebef4ca464eb6b0
+    name: ms-base
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-v0.1.0-beta.31/ms-base-v0.1.0-beta.31.tgz
+    version: v0.1.0-beta.31
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-02-17T15:23:27.396330641Z"
     description: A Helm chart for Kubernetes
     digest: b7e2c630cf749ae2c88d1d2818ae088600e4a513035a7bd53485fe018eb3b626
@@ -22,4 +32,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-chart-v0.1.0-beta.27/ms-base-chart-v0.1.0-beta.27.tgz
     version: v0.1.0-beta.27
-generated: "2025-02-17T15:23:27.396340309Z"
+generated: "2025-02-17T21:05:11.967669627Z"
