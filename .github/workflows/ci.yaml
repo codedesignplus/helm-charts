@@ -59,13 +59,12 @@ jobs:
 
       - name: Actualizar Chart.yaml
         run: |
-            sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" ${{github.workspace}}/charts/ms-base-chart/Chart.yaml
+            sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" ${{github.workspace}}/charts/ms-base/Chart.yaml
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
           
       - name: Push tag
         id: push_tag
