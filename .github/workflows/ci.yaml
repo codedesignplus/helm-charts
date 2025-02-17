@@ -122,6 +122,10 @@ jobs:
         id: set_matrix
         run: |
           CHART_DIRS=$(find charts -maxdepth 1 -type d -name "*" -print | grep -v charts$)
+
+          echo "Printing chart directories"
+          echo "$CHART_DIRS"
+
           CHART_ARRAY="["
           SEP=""
           for CHART_DIR in $CHART_DIRS; do
