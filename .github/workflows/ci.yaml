@@ -48,7 +48,7 @@ jobs:
           major-identifier: 'breaking'
           minor-identifier: 'feat'
           prefix: 'v'
-          dir-affected: ./
+          dir-affected: "charts/${{ matrix.chart }}"  # Afectar solo al directorio del chart
           previous-version: true
           new-version: true
 
@@ -112,37 +112,15 @@ jobs:
         with:
           fetch-depth: 2 # Necesitamos al menos los dos últimos commits
 
-      - name: Get changed files
-        id: changed_files
+      - name: Get changed chart directories
+        id: set_matrix
         run: |
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
-          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
-
-          - name: Get chart directories
-          id: set_matrix
-          run: |
-            CHART_DIRS=$(find charts -maxdepth 1 -type d -name "*" -print | grep -v charts$)
-  
-            echo "Printing chart directories"
-            echo "$CHART_DIRS"
-  
-            CHANGED_FILES=$(echo "${{ steps.changed_files.outputs.changed_files }}" | tr ' ' '\n')
-  
-            CHART_ARRAY="["
-  
-            SEP=""
-            for CHART_DIR in $CHART_DIRS; do
-              CHART_NAME=$(basename "$CHART_DIR")
-              if [ -f "$CHART_DIR/Chart.yaml" ]; then
-                # Check if any of the changed files are within the chart directory
-                for CHANGED_FILE in $CHANGED_FILES; do
-                   if [[ "$CHANGED_FILE" == "$CHART_DIR"* ]]; then
-                      CHART_ARRAY+="$SEP\"$CHART_NAME\""
-                      SEP=","
-                      break
-                   fi
-                done
-              fi
-            done
-            CHART_ARRAY+="]"
-            echo "matrix=$CHART_ARRAY" >> "$GITHUB_OUTPUT"
+          CHART_DIRS=$(git diff --name-only HEAD~1 HEAD | grep '^charts/' | cut -d'/' -f2 | sort -u)
+          CHART_ARRAY="["
+          SEP=""
+          for CHART_NAME in $CHART_DIRS; do
+            CHART_ARRAY+="$SEP\"$CHART_NAME\""
+            SEP=","
+          done
+          CHART_ARRAY+="]"
+          echo "matrix=$CHART_ARRAY" >> "$GITHUB_OUTPUT"
