@@ -1,4 +1,4 @@
-name: publish-chart
+name: Publish Charts
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
       - rc
       - dev
       - feature/*
-    # paths:
-    #   - 'ms-base-chart/**'
+    paths:
+      - 'charts/**'  # Escucha cambios en cualquier archivo dentro de 'charts/'
 
 env:
   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
@@ -16,7 +16,6 @@ env:
   IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
-  
 
 permissions:
   contents: write
@@ -26,31 +25,37 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chart: ${{ fromJson(needs.get_affected_charts.outputs.affected_chart_directories) }}
+
+    needs: [get_affected_charts]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
 
-      - name: SemVer 
+      - name: SemVer
         id: git-semver
         uses: codedesignplus/semver-git-version@v0.1.10
         with:
-          folder: ${{github.workspace}}
+          folder: ${{ github.workspace }}
           release-branch: 'main'
           release-candidate-branch: 'rc'
           beta-branch: 'dev'
           major-identifier: 'breaking'
-          minor-identifier: 'feat' 
+          minor-identifier: 'feat'
           prefix: 'v'
-          dir-affected: ./
+          dir-affected: "charts/${{ matrix.chart }}"  # Afectar solo al directorio del chart
           previous-version: true
           new-version: true
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
         with:
-          version: '3.12.0' 
+          version: '3.12.0'
 
       - name: Configure Git
         run: |
@@ -59,13 +64,15 @@ jobs:
 
       - name: Actualizar Chart.yaml
         run: |
-            sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" ${{github.workspace}}/charts/ms-base/Chart.yaml
+          sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/${{ matrix.chart }}/Chart.yaml"
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: "charts/${{ matrix.chart }}"
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          
+
       - name: Push tag
         id: push_tag
         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true' || env.IS_BETA == 'true'
@@ -76,15 +83,15 @@ jobs:
 
       - name: Build Changelog
         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
-        id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v4
+        id: build_changelog
         with:
-          configuration: "${{ github.workspace }}/.github/settings/configuration.json"          
+          configuration: "${{ github.workspace }}/.github/settings/configuration.json"
           fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
           toTag: ${{ steps.git-semver.outputs.new-version-prefix }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Create GitHub Release
         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
         uses: mikepenz/action-gh-release@v1
@@ -94,4 +101,41 @@ jobs:
           name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
           body: ${{ steps.build_changelog.outputs.changelog }}
           prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
-          
+
+  get_affected_charts:
+    runs-on: ubuntu-latest
+    outputs:
+      affected_chart_directories: ${{ steps.set_matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Necesitamos al menos los dos últimos commits
+
+      - name: Get changed files
+        id: changed_files
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+
+      - name: Get chart directories
+        id: set_matrix
+        run: |
+          CHART_DIRS=$(find charts -maxdepth 1 -type d -name "*" -print | grep -v charts$)
+          CHART_ARRAY="["
+          SEP=""
+          for CHART_DIR in $CHART_DIRS; do
+            CHART_NAME=$(basename "$CHART_DIR")
+            if [ -f "$CHART_DIR/Chart.yaml" ]; then
+              # Check if any of the changed files are within the chart directory
+              for CHANGED_FILE in ${{fromJson(toJson(steps.changed_files.outputs.changed_files))}}; do
+                 if [[ "$CHANGED_FILE" == "$CHART_DIR"* ]]; then
+                    CHART_ARRAY+="$SEP\"$CHART_NAME\""
+                    SEP=","
+                    break
+                 fi
+              done
+            fi
+          done
+          CHART_ARRAY+="]"
+          echo "matrix=$CHART_ARRAY" >> "$GITHUB_OUTPUT"
