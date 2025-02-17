@@ -48,7 +48,7 @@ jobs:
           major-identifier: 'breaking'
           minor-identifier: 'feat'
           prefix: 'v'
-          dir-affected: "charts/${{ matrix.chart }}"  # Afectar solo al directorio del chart
+          dir-affected: ./
           previous-version: true
           new-version: true
 
