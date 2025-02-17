@@ -1,8 +1,0 @@
-{{- if .Values.virtualService.create -}}
-apiVersion: networking.istio.io/v1
-kind: VirtualService
-metadata:
-  name: {{ include "ms-base.fullname" . }}
-spec:
-  {{- toYaml .Values.virtualService | nindent 2 }}
-{{- end }}
