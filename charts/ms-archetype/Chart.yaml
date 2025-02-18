@@ -3,7 +3,7 @@ name: ms-archetype
 description: This is a Helm chart for deploying the ms-archetype application
 type: application
 version: 0.1.0
-appVersion: 1.0.0
+appVersion: 0.0.2
 dependencies:
   - name: ms-base
     version: "v0.1.0-beta.30"
