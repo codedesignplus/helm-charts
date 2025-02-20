@@ -9,6 +9,9 @@ service:
     - name: grafana
       port: 3000
       targetPort: 3000
+    - name: vault
+      port: 8200
+      targetPort: 8200
 
 replicaCount: 1
 resources:

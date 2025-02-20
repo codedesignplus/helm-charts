@@ -38,11 +38,18 @@ helm install mongodb-cluster --namespace srv-mongodb ot-helm/mongodb-cluster --c
 
 # Install Vault Hashicorp
 
+- https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
+
 helm repo add hashicorp https://helm.releases.hashicorp.com
 
 helm repo update
 
-helm install vault hashicorp/vault -n operators --create-namespace --values vault/values.yaml
+helm install vault hashicorp/vault -n vault-operator --create-namespace --values vault/values.yaml
+
+kubectl label namespace vault-operator istio-injection=enabled
+
+
+kubectl apply -f vault/network.yaml
 
 # Install Istio
 > https://www.solo.io/blog/3-most-common-ways-install-istio
@@ -64,9 +71,9 @@ helm install istio-ingress istio/gateway -n istio-ingress --wait
 
 
 ### Deploy new Ingress Istio Cluster
-kubectl create namespace ingress-cluster
-kubectl label namespace ingress-cluster istio-injection=enabled
-helm install ingress-cluster istio/gateway -n ingress-cluster -f istio/istio-ingress.yaml --wait
+kubectl create namespace cluster-ingress
+kubectl label namespace cluster-ingress istio-injection=enabled
+helm install cluster-ingress istio/gateway -n cluster-ingress -f istio/istio-ingress.yaml --wait
 
 # Install Prometheus
 

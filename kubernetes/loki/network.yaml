@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   selector:
-    istio: ingress-cluster
+    istio: cluster-ingress
   servers:
   - port:
       number: 3100
