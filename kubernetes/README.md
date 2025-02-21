@@ -13,7 +13,10 @@ microk8s enable dns
 microk8s enable metallb
 microk8s enable hostpath-storage
 
-
+Redis
+Grafana Agent Flow
+Vault
+Istio
 
 # Install Redis Ot Container
 
@@ -121,3 +124,19 @@ helm repo update
 
 helm install otel-collector open-telemetry/opentelemetry-collector -f otel/value.yaml --set image.repository="otel/opentelemetry-collector-k8s" -n otel --create-namespace 
 
+
+
+# Install Grafana Agent Flow
+
+https://grafana.com/docs/agent/latest/flow/get-started/install/kubernetes/
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+kubectl create namespace grafana-agent
+
+kubectl create configmap --namespace grafana-agent grafana-agent-flow "--from-file=config.river=./config.river"
+
+helm install --namespace grafana-agent grafana-agent-flow grafana/grafana-agent -f grafana-agent/values.yaml
+
+helm upgrade --namespace grafana-agent grafana-agent-flow grafana/grafana-agent -f grafana-agent/values.yaml

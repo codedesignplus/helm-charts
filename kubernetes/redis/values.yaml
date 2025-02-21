@@ -89,11 +89,11 @@ externalService:
   enabled: true
   # annotations:
   #   foo: bar
-  serviceType: LoadBalancer
+  serviceType: ClusterIP
   port: 6379
 
 serviceMonitor:
-  enabled: false
+  enabled: true
   interval: 30s
   scrapeTimeout: 10s
   namespace: monitoring
@@ -103,7 +103,7 @@ serviceMonitor:
     # team: devops
 
 redisExporter:
-  enabled: false
+  enabled: true
   image: quay.io/opstree/redis-exporter
   tag: "v1.44.0"
   imagePullPolicy: IfNotPresent
