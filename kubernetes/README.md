@@ -24,20 +24,9 @@ helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/
 
 helm repo update
 
-helm install redis-operator ot-helm/redis-operator --namespace operators --create-namespace
+helm install redis-operator ot-helm/redis-operator --namespace redis-operator --create-namespace
 
 helm install redis-cluster ot-helm/redis-cluster --namespace srv-redis -f redis/values.yaml --create-namespace
-
-# Install Mongo Operator
-
-helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/
-
-helm repo update
-
-helm upgrade mongodb-operator ot-helm/mongodb-operator --install --namespace operators --install
-
-helm install mongodb-cluster --namespace srv-mongodb ot-helm/mongodb-cluster --create-namespace --set storage.storageClass=microk8s-hostpath
-
 
 # Install Vault Hashicorp
 
@@ -46,11 +35,11 @@ helm install mongodb-cluster --namespace srv-mongodb ot-helm/mongodb-cluster --c
 helm repo add hashicorp https://helm.releases.hashicorp.com
 
 helm repo update
-
-helm install vault hashicorp/vault -n vault-operator --create-namespace --values vault/values.yaml
+kubectl create namespace vault-operator
 
 kubectl label namespace vault-operator istio-injection=enabled
 
+helm install vault hashicorp/vault -n vault-operator --values vault/values.yaml
 
 kubectl apply -f vault/network.yaml
 
@@ -77,6 +66,29 @@ helm install istio-ingress istio/gateway -n istio-ingress --wait
 kubectl create namespace cluster-ingress
 kubectl label namespace cluster-ingress istio-injection=enabled
 helm install cluster-ingress istio/gateway -n cluster-ingress -f istio/istio-ingress.yaml --wait
+
+
+
+# Install Grafana Agent Flow
+
+https://grafana.com/docs/agent/latest/flow/get-started/install/kubernetes/
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+kubectl create namespace grafana-agent
+
+kubectl create configmap --namespace grafana-agent grafana-agent-flow "--from-file=config.river=./config.river"
+
+helm install --namespace grafana-agent grafana-agent-flow grafana/grafana-agent -f grafana-agent/values.yaml
+
+helm upgrade --namespace grafana-agent grafana-agent-flow grafana/grafana-agent -f grafana-agent/values.yaml
+
+
+
+----
+
+
 
 # Install Prometheus
 
@@ -115,8 +127,6 @@ helm repo update
 
 helm install tempo-server grafana/tempo-distributed -n monitoring -f tempo/values.yaml --create-namespace
 
-
-
 # Install Otel
 
 helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
@@ -124,19 +134,13 @@ helm repo update
 
 helm install otel-collector open-telemetry/opentelemetry-collector -f otel/value.yaml --set image.repository="otel/opentelemetry-collector-k8s" -n otel --create-namespace 
 
+# Install Mongo Operator
 
+helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/
 
-# Install Grafana Agent Flow
-
-https://grafana.com/docs/agent/latest/flow/get-started/install/kubernetes/
-
-helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 
-kubectl create namespace grafana-agent
+helm upgrade mongodb-operator ot-helm/mongodb-operator --install --namespace operators --install
 
-kubectl create configmap --namespace grafana-agent grafana-agent-flow "--from-file=config.river=./config.river"
+helm install mongodb-cluster --namespace srv-mongodb ot-helm/mongodb-cluster --create-namespace --set storage.storageClass=microk8s-hostpath
 
-helm install --namespace grafana-agent grafana-agent-flow grafana/grafana-agent -f grafana-agent/values.yaml
-
-helm upgrade --namespace grafana-agent grafana-agent-flow grafana/grafana-agent -f grafana-agent/values.yaml
