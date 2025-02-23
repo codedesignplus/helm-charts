@@ -2,13 +2,13 @@ ms-base:
   replicaCount: 1
 
   image:
-    repository: codedesignplus/ms-archetype-rest
+    repository: codedesignplus/ms-modules-rest
     pullPolicy: IfNotPresent
     tag: "v0.1.0-alpha.100"
 
   imagePullSecrets: []
-  fullnameOverride: "ms-archetype"
-  nameOverride: "ms-archetype"
+  fullnameOverride: "ms-modules"
+  nameOverride: "ms-modules"
 
   serviceAccount:
     create: true
@@ -97,14 +97,14 @@ ms-base:
     gateways:
       - services-gateway
     http:
-    - name: ms-archetype
+    - name: ms-modules
       match:
       - uri:
-          prefix: /ms-archetype/
+          prefix: /ms-modules/
       rewrite:
         uri: /
       route:
       - destination:
-          host: ms-archetype.default.svc.cluster.local
+          host: ms-modules.default.svc.cluster.local
           port:
             number: 5000
