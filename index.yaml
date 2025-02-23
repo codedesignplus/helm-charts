@@ -162,6 +162,21 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-v0.1.0/ms-licenses-v0.1.0.tgz
     version: v0.1.0
+  ms-modules:
+  - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-02-23T21:27:29.871575036Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-modules project.
+    digest: d27555df1e5774ff4d608dfac07862cce67a9688d5cdec35e7b738c0e0de8cd8
+    name: ms-modules
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-modules-v0.2.0/ms-modules-v0.2.0.tgz
+    version: v0.2.0
   ms-rbac:
   - apiVersion: v2
     appVersion: v0.2.0
@@ -192,4 +207,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-roles-v0.1.0/ms-roles-v0.1.0.tgz
     version: v0.1.0
-generated: "2025-02-23T21:24:50.391584628Z"
+generated: "2025-02-23T21:27:29.87160373Z"
