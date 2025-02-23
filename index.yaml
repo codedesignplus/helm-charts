@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   ms-archetype:
   - apiVersion: v2
+    appVersion: v0.1.0-alpha.102
+    created: "2025-02-23T15:39:32.159036159Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-archetype project.
+    digest: f4e30dfcb18a13dc35cf130d9ae7d5f2ca5e50f5b5169000b9153b23ca175229
+    name: ms-archetype
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-0.1.2/ms-archetype-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: 0.0.2
     created: "2025-02-18T01:45:28.884257098Z"
     dependencies:
@@ -91,4 +105,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-chart-v0.1.0-beta.27/ms-base-chart-v0.1.0-beta.27.tgz
     version: v0.1.0-beta.27
-generated: "2025-02-18T01:57:52.865532025Z"
+generated: "2025-02-23T15:39:32.159064553Z"
