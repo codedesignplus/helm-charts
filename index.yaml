@@ -162,4 +162,34 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-v0.1.0/ms-licenses-v0.1.0.tgz
     version: v0.1.0
-generated: "2025-02-23T21:11:04.820476371Z"
+  ms-rbac:
+  - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-02-23T21:24:50.201786482Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-rbac project.
+    digest: fae75806ed4afe38b848e4d72f88c24b2ad15f0337ea426a2e3de99b95de9b7a
+    name: ms-rbac
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-rbac-v0.2.0/ms-rbac-v0.2.0.tgz
+    version: v0.2.0
+  ms-roles:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2025-02-23T21:24:50.391539894Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-roles project.
+    digest: 9d8785b3e4701031ebfdba48603b2125c96b6b5b3c0c2fec1fb208cbd5fe89ff
+    name: ms-roles
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-roles-v0.1.0/ms-roles-v0.1.0.tgz
+    version: v0.1.0
+generated: "2025-02-23T21:24:50.391584628Z"
