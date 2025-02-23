@@ -135,6 +135,20 @@ entries:
     version: v0.1.0-beta.27
   ms-licenses:
   - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-02-23T21:11:04.82044384Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-licenses project.
+    digest: 6f95bf58498fce47f71329789bb5f8696a80e0fd5e86b728c9c979a03d4b1314
+    name: ms-licenses
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-v0.2.0/ms-licenses-v0.2.0.tgz
+    version: v0.2.0
+  - apiVersion: v2
     appVersion: v0.1.0
     created: "2025-02-23T19:54:36.495142187Z"
     dependencies:
@@ -148,4 +162,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-v0.1.0/ms-licenses-v0.1.0.tgz
     version: v0.1.0
-generated: "2025-02-23T20:53:35.964673021Z"
+generated: "2025-02-23T21:11:04.820476371Z"
