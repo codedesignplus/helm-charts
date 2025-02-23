@@ -1,0 +1,10 @@
+apiVersion: v2
+name: ms-locations
+description: This is a Helm chart for the ms-locations project.
+type: application
+version: v0.1.0
+appVersion: v0.1.0
+dependencies:
+  - name: ms-base
+    version: "v0.1.0-beta.30"
+    repository: "https://www.codedesignplus.com/helm-charts/"
