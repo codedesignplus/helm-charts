@@ -2,8 +2,8 @@ apiVersion: v2
 name: ms-archetype
 description: This is a Helm chart for the ms-archetype project.
 type: application
-version: 0.1.2
-appVersion: v0.1.0-alpha.103
+version: v0.1.0-alpha.104
+appVersion: v0.1.0-alpha.104
 dependencies:
   - name: ms-base
     version: "v0.1.0-beta.30"
