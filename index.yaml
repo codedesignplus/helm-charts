@@ -222,4 +222,19 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-roles-v0.1.0/ms-roles-v0.1.0.tgz
     version: v0.1.0
-generated: "2025-02-23T21:31:21.074590929Z"
+  ms-tenants:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2025-02-23T21:35:13.169465212Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-tenants project.
+    digest: 1d34a920c49fc00795e6618955dc85589bf97d295b6ee89eaa100648280b39a0
+    name: ms-tenants
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-tenants-v0.1.0/ms-tenants-v0.1.0.tgz
+    version: v0.1.0
+generated: "2025-02-23T21:35:13.169507762Z"
