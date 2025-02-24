@@ -238,6 +238,20 @@ entries:
     version: v0.1.0
   ms-services:
   - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2025-02-24T19:40:41.488470193Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-services project.
+    digest: 3936f4053795d4517e9a9396fc10abbd522a352483606290bd5df5619bed8b95
+    name: ms-services
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-services-v0.3.0/ms-services-v0.3.0.tgz
+    version: v0.3.0
+  - apiVersion: v2
     appVersion: v0.2.0
     created: "2025-02-23T21:40:50.370075652Z"
     dependencies:
@@ -266,4 +280,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-tenants-v0.1.0/ms-tenants-v0.1.0.tgz
     version: v0.1.0
-generated: "2025-02-23T21:41:46.341435113Z"
+generated: "2025-02-24T19:40:41.488512652Z"
