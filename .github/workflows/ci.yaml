@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-      - rc
-      - dev
-      - feature/*
 
 env:
   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
@@ -30,21 +27,6 @@ jobs:
         with:
           fetch-depth: 0 
 
-      - name: SemVer 
-        id: git-semver
-        uses: codedesignplus/semver-git-version@v0.1.10
-        with:
-          folder: ${{github.workspace}}
-          release-branch: 'main'
-          release-candidate-branch: 'rc'
-          beta-branch: 'dev'
-          major-identifier: 'breaking'
-          minor-identifier: 'feat' 
-          prefix: 'v'
-          dir-affected: ./
-          previous-version: true
-          new-version: true
-
       - name: Set up Helm
         uses: azure/setup-helm@v3
         with:
@@ -59,33 +41,3 @@ jobs:
         uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          
-      - name: Push tag
-        id: push_tag
-        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true' || env.IS_BETA == 'true'
-        uses: mathieudutour/github-tag-action@v6.1
-        with:
-          custom_tag: ${{ steps.git-semver.outputs.new-version }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build Changelog
-        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v4
-        with:
-          configuration: "${{ github.workspace }}/.github/settings/configuration.json"          
-          fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
-          toTag: ${{ steps.git-semver.outputs.new-version-prefix }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Create GitHub Release
-        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
-        uses: mikepenz/action-gh-release@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ steps.git-semver.outputs.new-version-prefix }}
-          name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
-          body: ${{ steps.build_changelog.outputs.changelog }}
-          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
-          
