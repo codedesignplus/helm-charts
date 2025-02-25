@@ -29,6 +29,51 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-0.0.1/ms-archetype-0.0.1.tgz
     version: 0.0.1
+  ms-archetype-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-02-25T13:06:40.373552071Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype-gRPC service
+    digest: ce8e0907edde7a6d0f9b74484bb48c7ec41963bf3c96fe949bb45be04d672388
+    name: ms-archetype-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-grpc-0.0.1/ms-archetype-grpc-0.0.1.tgz
+    version: 0.0.1
+  ms-archetype-rest:
+  - apiVersion: v2
+    appVersion: v0.2.0-alpha.1
+    created: "2025-02-25T13:06:40.488649468Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype REST service
+    digest: 2436fe4ebe8d04db303e218dfa47ae9c77bded6433bab065eb047103bd1ff3cf
+    name: ms-archetype-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-rest-v0.2.0-alpha.1/ms-archetype-rest-v0.2.0-alpha.1.tgz
+    version: v0.2.0-alpha.1
+  ms-archetype-worker:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-02-25T13:06:40.593623472Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype Worker service
+    digest: b61c0cb5be8cf7b480d552e28177fff16e589568b9e8a6bccb2433040db171c4
+    name: ms-archetype-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-worker-0.0.1/ms-archetype-worker-0.0.1.tgz
+    version: 0.0.1
   ms-base:
   - apiVersion: v2
     appVersion: 0.0.1
@@ -40,4 +85,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-0.0.1/ms-base-0.0.1.tgz
     version: 0.0.1
-generated: "2025-02-25T12:58:05.694934399Z"
+generated: "2025-02-25T13:06:40.5936328Z"
