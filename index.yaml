@@ -44,6 +44,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-0.1.0/ms-archetype-0.1.0.tgz
     version: 0.1.0
   - apiVersion: v2
+    appVersion: v0.1.0-alpha.109
+    created: "2025-02-25T11:47:35.162665976Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-archetype Worker service
+    digest: b17f32d438e434b7cc0b70ceebb0b499f00446329880cc37b65345689f3a8312
+    name: ms-archetype
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-v0.1.0-alpha.109/ms-archetype-v0.1.0-alpha.109.tgz
+    version: v0.1.0-alpha.109
+  - apiVersion: v2
     appVersion: v0.1.0-alpha.108
     created: "2025-02-25T03:01:14.179079744Z"
     dependencies:
@@ -85,6 +99,20 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-v0.1.0-alpha.104/ms-archetype-v0.1.0-alpha.104.tgz
     version: v0.1.0-alpha.104
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-02-25T11:47:35.047412703Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: v0.1.0-beta.30
+    description: This is a Helm chart for the ms-archetype REST service
+    digest: a0750b980c68ddd2c47b4271a0a44af9f8225321d3e33388f5f98bd8bd4407f6
+    name: ms-archetype
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-0.0.1/ms-archetype-0.0.1.tgz
+    version: 0.0.1
   ms-base:
   - apiVersion: v2
     appVersion: 0.0.2
@@ -294,4 +322,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-tenants-v0.1.0/ms-tenants-v0.1.0.tgz
     version: v0.1.0
-generated: "2025-02-25T03:01:14.179117614Z"
+generated: "2025-02-25T11:47:35.162735635Z"
