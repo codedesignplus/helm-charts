@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-archetype-grpc
     pullPolicy: IfNotPresent
-    tag: "v0.1.0-alpha.100"
+    tag: v0.2.0-alpha.1
 
   imagePullSecrets: []
   fullnameOverride: "ms-archetype-grpc"
