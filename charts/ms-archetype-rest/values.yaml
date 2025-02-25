@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-archetype-rest
     pullPolicy: IfNotPresent
-    tag: v0.2.0-alpha.3
+    tag: v0.2.0-alpha.4
 
   imagePullSecrets: []
   fullnameOverride: "ms-archetype-rest"
