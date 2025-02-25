@@ -1,5 +1,34 @@
 apiVersion: v1
 entries:
+  ms-archetype:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2025-02-25T12:58:05.694925873Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype-gRPC service
+    digest: 0f5e2df6329f8a8937f891a1434a4f73bb98d5465db59c3bd78b725dcc774c21
+    name: ms-archetype
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-v0.1.0/ms-archetype-v0.1.0.tgz
+    version: v0.1.0
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-02-25T12:58:05.572128814Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype Worker service
+    digest: 283ca608bb309bcbdeae5d1994882b728ea792fcb23262fc51922c5bc46c1d2c
+    name: ms-archetype
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-0.0.1/ms-archetype-0.0.1.tgz
+    version: 0.0.1
   ms-base:
   - apiVersion: v2
     appVersion: 0.0.1
@@ -11,4 +40,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-0.0.1/ms-base-0.0.1.tgz
     version: 0.0.1
-generated: "2025-02-25T12:35:16.89211545Z"
+generated: "2025-02-25T12:58:05.694934399Z"
