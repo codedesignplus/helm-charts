@@ -7,8 +7,6 @@ on:
       - rc
       - dev
       - feature/*
-    # paths:
-    #   - 'ms-base-chart/**'
 
 env:
   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
