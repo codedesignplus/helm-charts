@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-archetype-config
+  namespace: cdp-security 
+data:
+  CUSTOM: "VALUE"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-archetype-deployment
+  namespace: cdp-security # Cambia esto si usas un namespace diferente
+  labels:
+    app: ms-archetype
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-archetype
+  template:
+    metadata:
+      labels:
+        app: ms-archetype
+    spec:
+      containers:
+        - name: ms-archetype
+          image: codedesignplus/ms-archetype-rest:v0.1.0-alpha.71
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: ms-archetype-config
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 5000
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /readyz
+          #     port: 5000
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-archetype-service
+  namespace: cdp-security 
+  labels:
+    app: ms-archetype
+spec:
+  selector:
+    app: ms-archetype
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      name: http
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ms-archetype-hpa
+  namespace: cdp-security 
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ms-archetype-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-archetype-virtualservice
+  namespace: istio-system 
+spec:
+  hosts:
+    - "codedesignplus-dev.com" 
+  gateways:
+    - codedesignplus-gateway
+  http:
+    - route:
+        - destination:
+            host: ms-archetype-service.cdp-security.svc.cluster.local
+            port:
+              number: 5000

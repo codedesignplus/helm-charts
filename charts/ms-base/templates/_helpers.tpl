@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "ms-base-chart.name" -}}
+{{- define "ms-base.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "ms-base-chart.fullname" -}}
+{{- define "ms-base.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "ms-base-chart.chart" -}}
+{{- define "ms-base.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "ms-base-chart.labels" -}}
-helm.sh/chart: {{ include "ms-base-chart.chart" . }}
-{{ include "ms-base-chart.selectorLabels" . }}
+{{- define "ms-base.labels" -}}
+helm.sh/chart: {{ include "ms-base.chart" . }}
+{{ include "ms-base.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "ms-base-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "ms-base-chart.name" . }}
+{{- define "ms-base.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "ms-base.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "ms-base-chart.serviceAccountName" -}}
+{{- define "ms-base.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "ms-base-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "ms-base.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

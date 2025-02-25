@@ -1,0 +1,34 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: vault-gateway
+  namespace: vault-operator
+spec:
+  selector:
+    istio: cluster-ingress
+  servers:
+  - port:
+      number: 8200
+      name: http
+      protocol: HTTP
+    hosts:
+    - cluster.codedesignplus.com
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vault-virtualservice
+  namespace: vault-operator
+spec:
+  hosts:
+  - cluster.codedesignplus.com
+  gateways:
+  - vault-gateway
+  http:
+  - route:
+    - destination:
+        host: vault-ui.vault-operator.svc.cluster.local
+        port:
+          number: 8200

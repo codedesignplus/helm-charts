@@ -1,4 +1,4 @@
-# Default values for ms-base-chart.
+# Default values for ms-base.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -122,24 +122,15 @@ tolerations: []
 
 affinity: {}
 
-# Default values for the Istio Gateway
-gateway:
-  name: my-service-gateway
-  namespace: istio-system
-  selector:
-    istio: ingressgateway
+virtualService: 
+  create: false
   hosts:
-    - "my-service.example.com"
-  httpPort: 80
-  httpsPort: 443
-  tlsMode: PASSTHROUGH #SIMPLE
-  tlsSecretName: "" # my-tls-secret  # Only required if tlsMode is SIMPLE
-
-# Default values for the Istio VirtualService
-virtualService:
-  name: my-service-virtualservice
-  namespace: istio-system
-  hosts:
-    - "my-service.example.com"
-  serviceName: my-service
-  servicePort: 8080
+    - "chart-example.local"
+  gateways:
+    - ingress-gateway
+  http:
+  - route:
+    - destination:
+        host: nginx
+        port:
+          number: 80
