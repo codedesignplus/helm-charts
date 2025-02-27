@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   ms-archetype-grpc:
   - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-02-27T01:51:44.8316806Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype-gRPC service
+    digest: f30b5036c6cda9207064858786e9928c351a6b5ae9d1ca74778b829c1e1c32c8
+    name: ms-archetype-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-grpc-v0.2.0/ms-archetype-grpc-v0.2.0.tgz
+    version: v0.2.0
+  - apiVersion: v2
     appVersion: v0.2.0-alpha.4
     created: "2025-02-25T13:53:15.146009159Z"
     dependencies:
@@ -31,6 +45,20 @@ entries:
     version: v0.2.0-alpha.3
   ms-archetype-rest:
   - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-02-27T01:51:44.930698298Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype REST service
+    digest: f3a310e9f099a0c2ac91241892463d635fc289e025948c2c220a7ccfaab7bea2
+    name: ms-archetype-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-rest-v0.2.0/ms-archetype-rest-v0.2.0.tgz
+    version: v0.2.0
+  - apiVersion: v2
     appVersion: v0.2.0-alpha.4
     created: "2025-02-25T13:53:15.347581956Z"
     dependencies:
@@ -59,6 +87,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-rest-v0.2.0-alpha.3/ms-archetype-rest-v0.2.0-alpha.3.tgz
     version: v0.2.0-alpha.3
   ms-archetype-worker:
+  - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-02-27T01:51:45.032213602Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-archetype Worker service
+    digest: 1917502f42302ee59317481d98febf647a450adc026e935c32b92496091ef81f
+    name: ms-archetype-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-archetype-worker-v0.2.0/ms-archetype-worker-v0.2.0.tgz
+    version: v0.2.0
   - apiVersion: v2
     appVersion: v0.2.0-alpha.4
     created: "2025-02-25T13:53:15.468274764Z"
@@ -98,4 +140,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-0.0.1/ms-base-0.0.1.tgz
     version: 0.0.1
-generated: "2025-02-25T13:53:15.46829937Z"
+generated: "2025-02-27T01:51:45.032250622Z"
