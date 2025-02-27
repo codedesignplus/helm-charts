@@ -140,4 +140,19 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-0.0.1/ms-base-0.0.1.tgz
     version: 0.0.1
-generated: "2025-02-27T01:51:45.032250622Z"
+  ms-licenses-rest:
+  - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2025-02-27T12:53:02.56332167Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-licenses REST service
+    digest: cd996befb3ba3b9f434746b41eaf1ff24238670110217d93e86d2f59dd082eb5
+    name: ms-licenses-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-rest-v0.3.0/ms-licenses-rest-v0.3.0.tgz
+    version: v0.3.0
+generated: "2025-02-27T12:53:02.563353639Z"
