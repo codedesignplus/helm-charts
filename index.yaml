@@ -253,6 +253,21 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-rest-v0.3.0/ms-licenses-rest-v0.3.0.tgz
     version: v0.3.0
+  ms-locations-rest:
+  - apiVersion: v2
+    appVersion: v0.2.1
+    created: "2025-02-27T19:06:35.654323688Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.1
+    description: This is a Helm chart for the ms-locations REST service
+    digest: 183fa5d4dba94baf747706494e2205ff003033645b3bb10be09e24aee8c46948
+    name: ms-locations-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-locations-rest-v0.2.1/ms-locations-rest-v0.2.1.tgz
+    version: v0.2.1
   ms-rbac-grpc:
   - apiVersion: v2
     appVersion: v0.3.0
@@ -283,4 +298,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-rbac-rest-v0.3.0/ms-rbac-rest-v0.3.0.tgz
     version: v0.3.0
-generated: "2025-02-27T17:36:17.083849036Z"
+generated: "2025-02-27T19:06:35.654364243Z"
