@@ -2,8 +2,8 @@ apiVersion: v2
 name: ms-licenses-rest
 description: This is a Helm chart for the ms-licenses REST service
 type: application
-version: v0.3.2-rc.0
-appVersion: v0.3.2-rc.0
+version: v0.3.2-rc.1
+appVersion: v0.3.2-rc.1
 dependencies:
   - name: ms-base
     version: 0.0.1
