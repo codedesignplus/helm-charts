@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-rbac-grpc
     pullPolicy: IfNotPresent
-    tag: v0.3.0
+    tag: "v0.1.0-alpha.100"
 
   imagePullSecrets: []
   fullnameOverride: "ms-rbac-grpc"
