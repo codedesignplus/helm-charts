@@ -1,8 +1,7 @@
----
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: vault-gateway
+  name: cluster-gateway
   namespace: vault-operator
 spec:
   selector:
@@ -13,7 +12,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - cluster.codedesignplus.com
+    - cluster.excellenceforge.com
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -23,9 +22,9 @@ metadata:
   namespace: vault-operator
 spec:
   hosts:
-  - cluster.codedesignplus.com
+  - cluster.excellenceforge.com
   gateways:
-  - vault-gateway
+  - cluster-gateway
   http:
   - route:
     - destination:
