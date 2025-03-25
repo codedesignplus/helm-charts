@@ -2,8 +2,8 @@ apiVersion: v2
 name: ms-services-rest
 description: This is a Helm chart for the ms-services REST service
 type: application
-version: v0.4.7
-appVersion: v0.4.7
+version: v0.4.9
+appVersion: v0.4.9
 dependencies:
   - name: ms-base
     version: 0.0.1

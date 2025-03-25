@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-services-rest
     pullPolicy: IfNotPresent
-    tag: v0.4.7
+    tag: v0.4.9
 
   imagePullSecrets: []
   fullnameOverride: "ms-services-rest"
