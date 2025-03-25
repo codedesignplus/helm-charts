@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-licenses-rest
     pullPolicy: IfNotPresent
-    tag: v0.4.4-rc.2
+    tag: v0.4.4-rc.3
 
   imagePullSecrets: []
   fullnameOverride: "ms-licenses-rest"
