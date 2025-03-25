@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-locations-rest
     pullPolicy: IfNotPresent
-    tag: v0.2.3
+    tag: v0.2.5
 
   imagePullSecrets: []
   fullnameOverride: "ms-locations-rest"
