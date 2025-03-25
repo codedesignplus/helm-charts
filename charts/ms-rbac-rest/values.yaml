@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-rbac-rest
     pullPolicy: IfNotPresent
-    tag: v0.3.2
+    tag: v0.3.4
 
   imagePullSecrets: []
   fullnameOverride: "ms-rbac-rest"
