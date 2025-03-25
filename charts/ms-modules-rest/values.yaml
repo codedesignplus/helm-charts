@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-modules-rest
     pullPolicy: IfNotPresent
-    tag: v0.3.5
+    tag: v0.3.7
 
   imagePullSecrets: []
   fullnameOverride: "ms-modules-rest"
