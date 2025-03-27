@@ -4,7 +4,7 @@ ms-base:
   image:
     repository: codedesignplus/ms-services-grpc
     pullPolicy: IfNotPresent
-    tag: v0.4.13
+    tag: v0.4.15
 
   imagePullSecrets: []
   fullnameOverride: "ms-services-grpc"
