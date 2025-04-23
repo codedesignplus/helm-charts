@@ -126,6 +126,7 @@ affinity: {}
 
 virtualService: 
   create: false
+  namespace: istio-ingress
   hosts:
     - "chart-example.local"
   gateways:
