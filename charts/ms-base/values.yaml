@@ -137,6 +137,6 @@ virtualService:
         port:
           number: 80
 
-  vault:
-    create: true
-    token: ""
+vault:
+  create: true
+  token: ""
