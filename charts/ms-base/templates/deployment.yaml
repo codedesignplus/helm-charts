@@ -63,6 +63,13 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: {{ .Values.environment | quote }}
+            {{- if .Values.vault.create }}
+            - name: VAULT__TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ms-base.fullname" . }}-vaultsecret
+                  key: token
+            {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

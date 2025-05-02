@@ -136,3 +136,7 @@ virtualService:
         host: nginx
         port:
           number: 80
+
+  vault:
+    create: true
+    token: ""
