@@ -56,7 +56,16 @@ service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 80
+  #port: 80
+  ports:
+    - name: rest
+      port: 5000
+      targetPort: rest
+      protocol: TCP
+    - name: grpc
+      port: 5001
+      targetPort: grpc
+      protocol: TCP
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
