@@ -65,6 +65,8 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: {{ .Values.environment | quote }}
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name={{ .Chart.Name }},service.namespace={{ .Release.Namespace }},service.instance.id={{ .Release.Name }},deployment.environment={{ .Values.environment }}"
             {{- if .Values.vault.create }}
             - name: VAULT__TOKEN
               valueFrom:
