@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "ms-base.fullname" . }}-vaultserver
+  name: {{ include "ms-base.name" . }}-vaultserver
 data:
   server: {{ .Values.vault.server }}
 {{- end -}}

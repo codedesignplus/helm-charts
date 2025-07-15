@@ -2,7 +2,7 @@
 apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: {{ include "ms-base.fullname" . }}
+  name: {{ include "ms-base.name" . }}
 spec:
   {{- toYaml .Values.virtualService | nindent 2 }}
 {{- end }}

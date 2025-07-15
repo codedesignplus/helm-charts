@@ -2,9 +2,9 @@ apiVersion: v2
 name: ms-catalogs-grpc
 description: This is a Helm chart for the ms-catalogs-gRPC service
 type: application
-version: 0.0.1
-appVersion: "0.0.1"
+version: 0.0.2
+appVersion: "0.0.2"
 dependencies:
   - name: ms-base
-    version: 0.0.14
+    version: 0.0.15
     repository: "https://www.codedesignplus.com/helm-charts/"
