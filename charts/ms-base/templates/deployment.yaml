@@ -74,7 +74,7 @@ spec:
                   name: {{ include "ms-base.fullname" . }}-vaultsecret
                   key: token
             {{- end }}
-            {{- if and .Values.vault.create (not .Values.vault.server) }}
+            {{- if and .Values.vault.create (.Values.vault.server) }}
             - name: VAULT__SERVER
               valueFrom:
                 configMapKeyRef:

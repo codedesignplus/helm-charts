@@ -1,4 +1,4 @@
-{{- if and (.Values.vault.create) (not .Values.vault.server) }}
+{{- if and (.Values.vault.create) (.Values.vault.server) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
