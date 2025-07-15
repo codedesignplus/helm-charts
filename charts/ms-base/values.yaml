@@ -149,3 +149,4 @@ virtualService:
 vault:
   create: true
   token: ""
+  server: ""

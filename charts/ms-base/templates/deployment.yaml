@@ -74,6 +74,13 @@ spec:
                   name: {{ include "ms-base.fullname" . }}-vaultsecret
                   key: token
             {{- end }}
+            {{- if and .Values.vault.create (not .Values.vault.server) }}
+            - name: VAULT__SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "ms-base.fullname" . }}-vaultserver
+                  key: server
+            {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
