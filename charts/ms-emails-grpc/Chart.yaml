@@ -2,9 +2,9 @@ apiVersion: v2
 name: ms-emails-grpc
 description: This is a Helm chart for the ms-emails-gRPC service
 type: application
-version: 0.0.2
-appVersion: "0.0.2"
+version: 0.0.3
+appVersion: "0.0.3"
 dependencies:
   - name: ms-base
-    version: 0.0.14
+    version: 0.0.15
     repository: "https://www.codedesignplus.com/helm-charts/"
