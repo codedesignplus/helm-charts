@@ -222,6 +222,21 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-catalogs-grpc-0.0.1/ms-catalogs-grpc-0.0.1.tgz
     version: 0.0.1
+  ms-catalogs-rest:
+  - apiVersion: v2
+    appVersion: 0.0.4
+    created: "2025-07-16T22:52:42.923219171Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.16
+    description: This is a Helm chart for the ms-catalogs REST service
+    digest: af956e3a859751b8a0204ce8596fcf2399b9bf97ba5a2552607a09a8e6efc425
+    name: ms-catalogs-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-catalogs-rest-0.0.4/ms-catalogs-rest-0.0.4.tgz
+    version: 0.0.4
   ms-catalogs-worker:
   - apiVersion: v2
     appVersion: 0.0.4
@@ -1476,4 +1491,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-16T01:39:47.705615554Z"
+generated: "2025-07-16T22:52:42.923446089Z"
