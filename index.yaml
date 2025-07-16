@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   ms-base:
   - apiVersion: v2
+    appVersion: 0.0.15
+    created: "2025-07-16T01:27:55.998918547Z"
+    description: A Helm chart for Kubernetes
+    digest: ffd5dcbca19cfcb865bc704dd0d4a6b146d1ccbf1ae624199fa500c65fa2cc0c
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    name: ms-base
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-0.0.15/ms-base-0.0.15.tgz
+    version: 0.0.15
+  - apiVersion: v2
     appVersion: 0.0.14
     created: "2025-07-15T03:01:19.724492508Z"
     description: A Helm chart for Kubernetes
@@ -145,6 +156,20 @@ entries:
     version: 0.0.1
   ms-catalogs-grpc:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:56.191012405Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-catalogs-gRPC service
+    digest: a098f75fa3adb0949c0537a867a1e6196740466afed4ba966eb9f2177ac00923
+    name: ms-catalogs-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-catalogs-grpc-0.0.2/ms-catalogs-grpc-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:07.685872002Z"
     dependencies:
@@ -159,6 +184,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-catalogs-grpc-0.0.1/ms-catalogs-grpc-0.0.1.tgz
     version: 0.0.1
   ms-catalogs-worker:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:56.355997412Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-catalogs Worker service
+    digest: 5c3567a0e4ee06258a33b06a44757ce6e2ab9f4c5cded5bbd2dedbc91d84aebe
+    name: ms-catalogs-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-catalogs-worker-0.0.2/ms-catalogs-worker-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:07.817766847Z"
@@ -175,6 +214,20 @@ entries:
     version: 0.0.1
   ms-emails-grpc:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:56.520183378Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-emails-gRPC service
+    digest: 0e948d6179727d07701bf15a3d44679d765982915edfa97fead6f1e122b4d0fe
+    name: ms-emails-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-grpc-0.0.2/ms-emails-grpc-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:07.940528693Z"
     dependencies:
@@ -189,6 +242,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-grpc-0.0.1/ms-emails-grpc-0.0.1.tgz
     version: 0.0.1
   ms-emails-rest:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:56.674232938Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-tenants REST service
+    digest: 3e1ebdb43fa264b83284d15ef49f67c85bffaae89e40301fecbf63b5dc3bd3d9
+    name: ms-emails-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-rest-0.0.2/ms-emails-rest-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.04844925Z"
@@ -205,6 +272,20 @@ entries:
     version: 0.0.1
   ms-emails-worker:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:56.857060203Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-emails Worker service
+    digest: fc1a597a62aa7e8484f5e393901d8ce5a840b073080865c748b457b73f4e885d
+    name: ms-emails-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-worker-0.0.2/ms-emails-worker-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.144704341Z"
     dependencies:
@@ -219,6 +300,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-worker-0.0.1/ms-emails-worker-0.0.1.tgz
     version: 0.0.1
   ms-filestorage-worker:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.015195755Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-filestorage Worker service
+    digest: 7cea2c4ac14b0a52083159a2af79e140ccd121a5b3d27f4c7e33a80a2c6f7482
+    name: ms-filestorage-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-filestorage-worker-0.0.2/ms-filestorage-worker-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.261209382Z"
@@ -235,6 +330,20 @@ entries:
     version: 0.0.1
   ms-licenses-rest:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.174380309Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-licenses REST service
+    digest: 3e7364ea30d5fbe144305c518ea109456d38ac37e853d10e18bebdc3f2de4ee1
+    name: ms-licenses-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-rest-0.0.2/ms-licenses-rest-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.438735939Z"
     dependencies:
@@ -249,6 +358,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-rest-0.0.1/ms-licenses-rest-0.0.1.tgz
     version: 0.0.1
   ms-locations-rest:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.350859348Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-locations REST service
+    digest: 2a827f3b311902cb4863300334291922da96c75ad1086330edeb3be1ce269bb3
+    name: ms-locations-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-locations-rest-0.0.2/ms-locations-rest-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.53919756Z"
@@ -265,6 +388,20 @@ entries:
     version: 0.0.1
   ms-microsoftgraph-rest:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.48730636Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-microsoftgraph REST service
+    digest: 5461de2b37e962c8fb1899eb8f78ad025f46f4d6d305ce6fb29ae35cd16259d2
+    name: ms-microsoftgraph-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-microsoftgraph-rest-0.0.2/ms-microsoftgraph-rest-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.641321401Z"
     dependencies:
@@ -279,6 +416,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-microsoftgraph-rest-0.0.1/ms-microsoftgraph-rest-0.0.1.tgz
     version: 0.0.1
   ms-microsoftgraph-worker:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.633286986Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-microsoftgraph Worker service
+    digest: ad2734818a267b30c12ff184250c47dd57705f40cf8e9af6bc3ace7360e31b13
+    name: ms-microsoftgraph-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-microsoftgraph-worker-0.0.2/ms-microsoftgraph-worker-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.75998211Z"
@@ -295,6 +446,20 @@ entries:
     version: 0.0.1
   ms-modules-rest:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.796826222Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-modules REST service
+    digest: e0dd12a7fcf71c15fdbb7ad530b1c45db7d8491470af6ab3dcfc806bca389589
+    name: ms-modules-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-modules-rest-0.0.2/ms-modules-rest-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:08.880995115Z"
     dependencies:
@@ -309,6 +474,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-modules-rest-0.0.1/ms-modules-rest-0.0.1.tgz
     version: 0.0.1
   ms-payments-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:57.964214904Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-payments-gRPC service
+    digest: 4a112d84347f8602d1211eb6ef42810728fb952becb085c2103ffd918790abed
+    name: ms-payments-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-payments-grpc-0.0.2/ms-payments-grpc-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.001455878Z"
@@ -325,6 +504,20 @@ entries:
     version: 0.0.1
   ms-payments-worker:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:58.124345193Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-payments Worker service
+    digest: d5e9b4bc5380620ad685fcc0713ae55e5ae449c1c1bea892413018525aea63c7
+    name: ms-payments-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-payments-worker-0.0.2/ms-payments-worker-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.136329408Z"
     dependencies:
@@ -339,6 +532,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-payments-worker-0.0.1/ms-payments-worker-0.0.1.tgz
     version: 0.0.1
   ms-rbac-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:58.292760526Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-rbac-gRPC service
+    digest: d85a76ab296e0c1ed1b2dbf0580db11e821b3c847bd17cc7dd3908584b652c44
+    name: ms-rbac-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-rbac-grpc-0.0.2/ms-rbac-grpc-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.264996422Z"
@@ -355,6 +562,20 @@ entries:
     version: 0.0.1
   ms-rbac-rest:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:58.443982718Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-rbac REST service
+    digest: afbce53179499a335b7e930a699f027c291b9f329fd77f90a280b9bc7d1ca7a0
+    name: ms-rbac-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-rbac-rest-0.0.2/ms-rbac-rest-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.364305041Z"
     dependencies:
@@ -369,6 +590,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-rbac-rest-0.0.1/ms-rbac-rest-0.0.1.tgz
     version: 0.0.1
   ms-roles-rest:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:58.586420486Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-roles REST service
+    digest: 48c9361da32dd4038a9ce22e0bdc3abc2766e246b4034da44006caa08b31a0f2
+    name: ms-roles-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-roles-rest-0.0.2/ms-roles-rest-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.46196544Z"
@@ -385,6 +620,20 @@ entries:
     version: 0.0.1
   ms-services-grpc:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:58.732884774Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-services-gRPC service
+    digest: 8301fdbbc6f1b1099b7bfaafcbf661a60e7e50ad9a4033b40065d14bcfe2dfc0
+    name: ms-services-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-services-grpc-0.0.2/ms-services-grpc-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.550653013Z"
     dependencies:
@@ -399,6 +648,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-services-grpc-0.0.1/ms-services-grpc-0.0.1.tgz
     version: 0.0.1
   ms-services-rest:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:58.903225951Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-services REST service
+    digest: a5735ffef3e86c1e0d4c936a6d7cacfa21ce722e187ad151e9ab55ee6fd9db48
+    name: ms-services-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-services-rest-0.0.2/ms-services-rest-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.679587656Z"
@@ -415,6 +678,20 @@ entries:
     version: 0.0.1
   ms-tenants-grpc:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:59.042757744Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-tenants-gRPC service
+    digest: 37031f81aa70415363063925d1f77043faad6cb99cf0aca5c31c4ed81da98056
+    name: ms-tenants-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-tenants-grpc-0.0.2/ms-tenants-grpc-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:09.902262732Z"
     dependencies:
@@ -429,6 +706,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-tenants-grpc-0.0.1/ms-tenants-grpc-0.0.1.tgz
     version: 0.0.1
   ms-tenants-rest:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:59.213703355Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-tenants REST service
+    digest: 71f94f4840a1656568e0caa9739f98aecfd2e11bc4f32ce274be53f3df8646c3
+    name: ms-tenants-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-tenants-rest-0.0.2/ms-tenants-rest-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:10.002997819Z"
@@ -445,6 +736,20 @@ entries:
     version: 0.0.1
   ms-users-grpc:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:59.381402133Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-users-gRPC service
+    digest: 48423c759a6d5f8596f0a2464cd5af3fbe877ff026f318577cd367231e53f72a
+    name: ms-users-grpc
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-grpc-0.0.2/ms-users-grpc-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:10.137724715Z"
     dependencies:
@@ -459,6 +764,20 @@ entries:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-grpc-0.0.1/ms-users-grpc-0.0.1.tgz
     version: 0.0.1
   ms-users-rest:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:59.528942109Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-users REST service
+    digest: 6aa63e35f149bbe2d3623d5264fb99c4e5272bf9f00ba58da559887347584243
+    name: ms-users-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-rest-0.0.2/ms-users-rest-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:10.243380771Z"
@@ -475,6 +794,20 @@ entries:
     version: 0.0.1
   ms-users-worker:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-07-16T01:27:59.700428717Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.14
+    description: This is a Helm chart for the ms-users Worker service
+    digest: 8c0d5ec951dce9c57ec4450ccf7e7712373bcc88d9d4c62f8a636228f5ba45b5
+    name: ms-users-worker
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.2/ms-users-worker-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2025-07-15T03:15:10.372299733Z"
     dependencies:
@@ -488,4 +821,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-15T03:15:10.372345669Z"
+generated: "2025-07-16T01:27:59.700611118Z"
