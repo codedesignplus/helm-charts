@@ -465,6 +465,21 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-worker-0.0.1/ms-emails-worker-0.0.1.tgz
     version: 0.0.1
+  ms-filestorage-rest:
+  - apiVersion: v2
+    appVersion: 0.0.4
+    created: "2025-07-16T23:55:02.952481795Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.16
+    description: This is a Helm chart for the ms-filestorage REST service
+    digest: 1160a6478b1c1123a5e9ebf4c23fbf8c24eb7b829c167524574dfec791e259cb
+    name: ms-filestorage-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-filestorage-rest-0.0.4/ms-filestorage-rest-0.0.4.tgz
+    version: 0.0.4
   ms-filestorage-worker:
   - apiVersion: v2
     appVersion: 0.0.4
@@ -864,6 +879,21 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-payments-grpc-0.0.1/ms-payments-grpc-0.0.1.tgz
     version: 0.0.1
+  ms-payments-rest:
+  - apiVersion: v2
+    appVersion: 0.0.4
+    created: "2025-07-16T23:55:03.175291782Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.16
+    description: This is a Helm chart for the ms-payments REST service
+    digest: 1547a91915d55b58bf60a6eb9a2f6b011796b3d98aed88e12ce01528723b422a
+    name: ms-payments-rest
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-payments-rest-0.0.4/ms-payments-rest-0.0.4.tgz
+    version: 0.0.4
   ms-payments-worker:
   - apiVersion: v2
     appVersion: 0.0.4
@@ -1491,4 +1521,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-16T22:52:42.923446089Z"
+generated: "2025-07-16T23:55:03.175472171Z"
