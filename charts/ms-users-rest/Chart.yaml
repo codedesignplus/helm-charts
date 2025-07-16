@@ -2,9 +2,9 @@ apiVersion: v2
 name: ms-users-rest
 description: This is a Helm chart for the ms-users REST service
 type: application
-version: 0.0.3
-appVersion: "0.0.3"
+version: 0.0.4
+appVersion: "0.0.4"
 dependencies:
   - name: ms-base
-    version: 0.0.15
+    version: 0.0.16
     repository: "https://www.codedesignplus.com/helm-charts/"
