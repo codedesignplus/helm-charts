@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "ms-base.name" . }}
+  name: {{ .Release.Name }}
   labels:
     {{- include "ms-base.labels" . | nindent 4 }}
 spec:
@@ -71,14 +71,14 @@ spec:
             - name: VAULT__TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ms-base.name" . }}-vaultsecret
+                  name: {{ .Release.Name }}-vaultsecret
                   key: token
             {{- end }}
             {{- if and .Values.vault.create (.Values.vault.server) }}
             - name: VAULT__SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "ms-base.name" . }}-vaultserver
+                  name: {{ .Release.Name }}-vaultserver
                   key: server
             {{- end }}
       {{- with .Values.volumes }}
