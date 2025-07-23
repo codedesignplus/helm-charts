@@ -1,0 +1,33 @@
+ms-base:
+  environment: Staging
+  replicaCount: 1
+
+  image:
+    repository: codedesignplus/ms-filestorage-worker
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  imagePullSecrets: []
+  fullnameOverride: "ms-filestorage-worker"
+  nameOverride: "ms-filestorage-worker"
+
+  service:
+    type: ClusterIP
+    port: 5000
+
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetMemoryUtilizationPercentage: 80
+
+  virtualService: 
+    create: false

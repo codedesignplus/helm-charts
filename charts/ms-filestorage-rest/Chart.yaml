@@ -1,9 +1,24 @@
 apiVersion: v2
 name: ms-filestorage-rest
 description: This is a Helm chart for the ms-filestorage REST service
+icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+license: LGPL-3.0
+home: https://www.codedesignplus.com
+sources:
+  - https://github.com/codedesignplus/helm-charts
+keywords:
+  - microservice
+  - rest
+  - api
+  - catalogs
+  - istio
+maintainers:
+  - name: Codedesignplus
+    email: support@codedesignplus.com
+    url: https://www.codedesignplus.com
 type: application
 version: 0.0.4
-appVersion: "0.0.4"
+appVersion: 0.0.4
 dependencies:
   - name: ms-base
     version: 0.0.16

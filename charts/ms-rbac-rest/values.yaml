@@ -1,0 +1,54 @@
+ms-base:
+  environment: Staging
+  replicaCount: 1
+
+  image:
+    repository: codedesignplus/ms-rbac-rest
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  imagePullSecrets: []
+  fullnameOverride: "ms-rbac-rest"
+  nameOverride: "ms-rbac-rest"
+
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 5000
+        targetPort: http
+        protocol: TCP
+
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetMemoryUtilizationPercentage: 80
+
+  virtualService: 
+    create: true
+    namespace: istio-ingress
+    hosts:
+      - services.codedesignplus.com
+    gateways:
+      - istio-ingress/istio-gateway
+    http:
+    - name: ms-rbac
+      match:
+      - uri:
+          prefix: /ms-rbac/
+      rewrite:
+        uri: /
+      route:
+      - destination:
+          host: ms-rbac-rest.codedesignplus.svc.cluster.local
+          port:
+            number: 5000

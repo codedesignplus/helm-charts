@@ -182,3 +182,12 @@ properties:
                         properties:
                           number:
                             type: integer
+  vault:
+    type: object
+    properties:
+      create:
+        type: boolean
+      token:
+        type: string
+      server:
+        type: string

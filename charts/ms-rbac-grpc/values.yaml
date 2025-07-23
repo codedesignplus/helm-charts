@@ -1,0 +1,41 @@
+ms-base:
+  environment: Staging
+  replicaCount: 1
+
+  image:
+    repository: codedesignplus/ms-rbac-grpc
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  imagePullSecrets: []
+  fullnameOverride: "ms-rbac-grpc"
+  nameOverride: "ms-rbac-grpc"
+
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 5000
+        targetPort: http
+        protocol: TCP
+      - name: grpc
+        port: 5001
+        targetPort: grpc
+        protocol: TCP
+
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetMemoryUtilizationPercentage: 80
+
+  virtualService: 
+    create: false

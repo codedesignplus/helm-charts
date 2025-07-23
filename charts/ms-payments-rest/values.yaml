@@ -1,0 +1,53 @@
+ms-base:
+  environment: Staging
+  replicaCount: 1
+
+  image:
+    repository: codedesignplus/ms-payments-rest
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  imagePullSecrets: []
+  fullnameOverride: "ms-payments-rest"
+  nameOverride: "ms-payments-rest"
+
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 5000
+        targetPort: http
+        protocol: TCP
+
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetMemoryUtilizationPercentage: 80
+
+  virtualService: 
+    create: true
+    hosts:
+      - services.codedesignplus.com
+    gateways:
+      - istio-ingress/istio-gateway
+    http:
+    - name: ms-payments
+      match:
+      - uri:
+          prefix: /ms-payments/
+      rewrite:
+        uri: /
+      route:
+      - destination:
+          host: ms-payments-rest.codedesignplus.svc.cluster.local
+          port:
+            number: 5000

@@ -1,0 +1,37 @@
+ms-base:
+  environment: Staging
+  replicaCount: 1
+
+  image:
+    repository: codedesignplus/ms-payments-worker
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  imagePullSecrets: []
+  fullnameOverride: "ms-payments-worker"
+  nameOverride: "ms-payments-worker"
+
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 5000
+        targetPort: http
+        protocol: TCP
+
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetMemoryUtilizationPercentage: 80
+
+  virtualService: 
+    create: false
