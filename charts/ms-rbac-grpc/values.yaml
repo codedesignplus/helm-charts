@@ -39,3 +39,7 @@ ms-base:
 
   virtualService: 
     create: false
+
+  vault:
+    server: http://vault-internal.vault-operator.svc.cluster.local:8200
+    solution: security-codedesignplus

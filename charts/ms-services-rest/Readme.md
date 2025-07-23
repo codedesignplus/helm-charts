@@ -17,6 +17,7 @@ This chart provides the configuration for deploying the ms-services-rest microse
 helm upgrade --install ms-services-rest codedesignplus/ms-services-rest \
     --namespace <namespace> \
     --set ms-base.vault.token=<vault-token> \
+    --set ms-base.virtualService.http[0].route[0].destination.host=ms-services-rest.<namespace>.svc.cluster.local \
     --create-namespace
 ```
 
@@ -68,8 +69,9 @@ All configurable values available in `values.yaml` (inherited from ms-base):
 | `virtualService.gateways` | VirtualService gateways | ["istio-ingress/services-gateway"] |
 | `virtualService.http` | VirtualService HTTP configuration | [{route: [{destination: {host, port: {number}}}]}] |
 | `vault.create` | Enable Vault integration | true/false |
-| `vault.token` | Vault token | "" |
-| `vault.server` | Vault server URL | "" |
+| `vault.token` | Vault token | The token for Vault authentication. |
+| `vault.server` | Vault server URL | The Vault server address. |
+| `vault.solution` | Vault solution | The Vault solution to connect to secret (key-value store, database, rabbitmq or transit). |
 
 See `ms-base/values.yaml` and `ms-base/values.schema.yaml` for advanced examples and details.
 
@@ -137,6 +139,10 @@ ms-base:
           host: ms-services-rest.codedesignplus.svc.cluster.local
           port:
             number: 5000
+    
+  vault:
+    server: http://vault-internal.vault-operator.svc.cluster.local:8200
+    solution: security-codedesignplus
 ```
 ## Requirements
 

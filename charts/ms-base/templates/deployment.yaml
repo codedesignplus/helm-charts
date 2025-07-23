@@ -81,6 +81,13 @@ spec:
                   name: {{ .Release.Name }}-vaultserver
                   key: server
             {{- end }}
+            {{- if and .Values.vault.create (.Values.vault.solution) }}
+            - name: VAULT__SOLUTION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-vaultserver
+                  key: solution
+            {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

@@ -70,8 +70,9 @@ All configurable values available in `values.yaml`:
 | `virtualService.gateways` | VirtualService gateways | ["istio-ingress/services-gateway"] |
 | `virtualService.http` | VirtualService HTTP configuration | [{route: [{destination: {host, port: {number}}}]}] |
 | `vault.create` | Enable Vault integration | true/false |
-| `vault.token` | Vault token | "" |
-| `vault.server` | Vault server URL | "" |
+| `vault.token` | Vault token | The token for Vault authentication. |
+| `vault.server` | Vault server URL | The Vault server address. |
+| `vault.solution` | Vault solution | The Vault solution to connect to secret (key-value store, database, rabbitmq or transit). |
 
 See `values.yaml` and `values.schema.yaml` for advanced examples and details.
 

@@ -162,5 +162,9 @@ virtualService:
 # Note: This is not a standard Kubernetes feature and requires additional setup. This configuration is for a custom implementation that uses Vault for secret management with token authentication.
 vault:
   create: true
+  # The token for Vault authentication.
   token: ""
+  # The Vault server address.
   server: ""
+  # The Vault solution to connect to secret (key-value store, database, rabbitmq or transit).
+  solution: ""

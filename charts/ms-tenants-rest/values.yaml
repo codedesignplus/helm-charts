@@ -51,3 +51,7 @@ ms-base:
           host: ms-tenants-rest.codedesignplus.svc.cluster.local
           port:
             number: 5000
+
+  vault:
+    server: http://vault-internal.vault-operator.svc.cluster.local:8200
+    solution: security-codedesignplus

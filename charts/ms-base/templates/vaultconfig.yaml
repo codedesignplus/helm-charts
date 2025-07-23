@@ -5,4 +5,5 @@ metadata:
   name: {{ .Release.Name }}-vaultserver
 data:
   server: {{ .Values.vault.server }}
+  solution: {{ .Values.vault.solution }}
 {{- end -}}
