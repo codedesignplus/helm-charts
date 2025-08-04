@@ -75,7 +75,7 @@ spec:
                   key: token
             {{- end }}
             {{- if and .Values.vault.create (.Values.vault.server) }}
-            - name: VAULT__SERVER
+            - name: VAULT__ADDRESS
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-vaultserver
