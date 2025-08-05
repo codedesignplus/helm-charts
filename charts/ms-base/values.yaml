@@ -168,3 +168,10 @@ vault:
   server: ""
   # The Vault solution to connect to secret (key-value store, database, rabbitmq or transit).
   solution: ""
+
+# This is for setting environment variables for the container.
+env: {}
+  # This is for setting environment variables for the container.
+  # For more information checkout: https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
+  # - name: EXAMPLE_ENV_VAR
+  #   value: "example-value"
