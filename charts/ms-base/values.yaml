@@ -147,16 +147,17 @@ affinity: {}
 # For more information checkout: https://istio.io/latest/docs/reference/config/networking/virtual-service/
 virtualService: 
   create: false
-  hosts:
-    - "chart-example.local"
-  gateways:
-    - istio-ingress/services-gateway
-  http:
-  - route:
-    - destination:
-        host: nginx
-        port:
-          number: 80
+  spec:
+    hosts:
+      - "chart-example.local"
+    gateways:
+      - istio-ingress/services-gateway
+    http:
+    - route:
+      - destination:
+          host: nginx
+          port:
+            number: 80
 
 # This is for settings Vault integration. 
 # Note: This is not a standard Kubernetes feature and requires additional setup. This configuration is for a custom implementation that uses Vault for secret management with token authentication.
