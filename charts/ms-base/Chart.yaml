@@ -18,6 +18,6 @@ maintainers:
     url: https://www.codedesignplus.com
 type: application
 kubeVersion: ">= 1.32.0-0"
-version: 0.0.25
-appversion: 0.0.25
+version: 0.0.26
+appversion: 0.0.26
 
