@@ -3,6 +3,7 @@ name: ms-filestorage-worker
 description: This is a Helm chart for the ms-filestorage Worker service
 icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
 home: https://www.codedesignplus.com
+license: LGPL-3.0
 sources:
   - https://github.com/codedesignplus/helm-charts
 keywords:
@@ -16,8 +17,8 @@ maintainers:
     email: support@codedesignplus.com
     url: https://www.codedesignplus.com
 type: application
-version: 0.0.11
-appVersion: 0.0.11
+version: 0.0.12
+appVersion: 0.0.12
 dependencies:
   - name: ms-base
     version: 0.0.22
