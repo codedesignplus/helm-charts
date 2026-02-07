@@ -1670,6 +1670,34 @@ entries:
     version: 0.0.4
   ms-filestorage-worker:
   - apiVersion: v2
+    appVersion: 0.0.12
+    created: "2026-02-07T14:36:13.798960407Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.22
+    description: This is a Helm chart for the ms-filestorage Worker service
+    digest: 634c4705b80d2af4222032bc49ae55dc3319b44f06cfad7921d34831f21433bd
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - catalogs
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-filestorage-worker
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-filestorage-worker-0.0.12/ms-filestorage-worker-0.0.12.tgz
+    version: 0.0.12
+  - apiVersion: v2
     appVersion: 0.0.11
     created: "2025-08-05T12:37:07.274510604Z"
     dependencies:
@@ -3186,6 +3214,35 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-modules-rest-0.0.1/ms-modules-rest-0.0.1.tgz
     version: 0.0.1
+  ms-notification-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.12
+    created: "2026-02-07T14:36:13.925640119Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.22
+    description: This is a Helm chart for the ms-notification-gRPC service
+    digest: 91af850c4945b8132b167c2ad162b9f866863c233c6fa12c4e5feb0be0148cec
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - catalogs
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-notification-grpc
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-notification-grpc-0.0.12/ms-notification-grpc-0.0.12.tgz
+    version: 0.0.12
   ms-payments-grpc:
   - apiVersion: v2
     appVersion: 0.0.11
@@ -6433,4 +6490,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-01-19T12:40:51.088225442Z"
+generated: "2026-02-07T14:36:13.926080711Z"
