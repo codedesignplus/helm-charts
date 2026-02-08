@@ -101,19 +101,20 @@ ms-base:
 
   virtualService: 
     create: true
-    hosts:
-      - services.codedesignplus.com
-    gateways:
-      - istio-ingress/istio-gateway
-    http:
-    - name: ms-notification
-      match:
-      - uri:
-          prefix: /ms-notification/
-      rewrite:
-        uri: /
-      route:
-      - destination:
-          host: ms-notification-grpc.urbancore.svc.cluster.local
-          port:
-            number: 5000
+    spec:
+      hosts:
+        - services.codedesignplus.com
+      gateways:
+        - istio-ingress/istio-gateway
+      http:
+      - name: ms-notification
+        match:
+        - uri:
+            prefix: /ms-notification/
+        rewrite:
+          uri: /
+        route:
+        - destination:
+            host: ms-notification-grpc.urbancore.svc.cluster.local
+            port:
+              number: 5000

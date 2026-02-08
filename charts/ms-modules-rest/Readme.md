@@ -65,9 +65,9 @@ All configurable values available in `values.yaml` (inherited from ms-base):
 | `tolerations` | Tolerations | [] |
 | `affinity` | Affinity | {} |
 | `virtualService.create` | Enable Istio VirtualService | true/false |
-| `virtualService.hosts` | VirtualService hosts | ["chart-example.local"] |
-| `virtualService.gateways` | VirtualService gateways | ["istio-ingress/services-gateway"] |
-| `virtualService.http` | VirtualService HTTP configuration | [{route: [{destination: {host, port: {number}}}]}] |
+| `virtualService.spec.hosts` | VirtualService hosts | ["chart-example.local"] |
+| `virtualService.spec.gateways` | VirtualService gateways | ["istio-ingress/services-gateway"] |
+| `virtualService.spec.http` | VirtualService HTTP configuration | [{route: [{destination: {host, port: {number}}}]}] |
 | `vault.create` | Enable Vault integration | true/false |
 | `vault.token` | Vault token | The token for Vault authentication. |
 | `vault.server` | Vault server URL | The Vault server address. |
@@ -122,24 +122,25 @@ ms-base:
 
   virtualService: 
     create: true
-    namespace: istio-ingress
-    hosts:
-      - services.codedesignplus.com
-    gateways:
-      - istio-ingress/istio-gateway
-    http:
-    - name: ms-modules
-      match:
-      - uri:
-          prefix: /ms-modules/
-      rewrite:
-        uri: /
-      route:
-      - destination:
-          host: ms-modules-rest.codedesignplus.svc.cluster.local
-          port:
-            number: 5000
-    
+    spec:
+      namespace: istio-ingress
+      hosts:
+        - services.codedesignplus.com
+      gateways:
+        - istio-ingress/istio-gateway
+      http:
+      - name: ms-modules
+        match:
+        - uri:
+            prefix: /ms-modules/
+        rewrite:
+          uri: /
+        route:
+        - destination:
+            host: ms-modules-rest.codedesignplus.svc.cluster.local
+            port:
+              number: 5000
+      
   vault:
     server: http://vault-internal.vault-operator.svc.cluster.local:8200
     solution: security-codedesignplus

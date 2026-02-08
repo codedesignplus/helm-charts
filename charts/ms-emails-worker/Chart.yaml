@@ -17,9 +17,9 @@ maintainers:
     email: support@codedesignplus.com
     url: https://www.codedesignplus.com
 type: application
-version: 0.0.11
-appVersion: 0.0.11
+version: 0.0.12
+appVersion: 0.0.12
 dependencies:
   - name: ms-base
-    version: 0.0.22
+    version: 0.0.26
     repository: "https://www.codedesignplus.com/helm-charts/"

@@ -64,9 +64,9 @@ All configurable values available in `values.yaml` (inherited from ms-base):
 | `tolerations` | Tolerations | [] |
 | `affinity` | Affinity | {} |
 | `virtualService.create` | Enable Istio VirtualService | true/false |
-| `virtualService.hosts` | VirtualService hosts | ["chart-example.local"] |
-| `virtualService.gateways` | VirtualService gateways | ["istio-ingress/services-gateway"] |
-| `virtualService.http` | VirtualService HTTP configuration | [{route: [{destination: {host, port: {number}}}]}] |
+| `virtualService.spec.hosts` | VirtualService hosts | ["chart-example.local"] |
+| `virtualService.spec.gateways` | VirtualService gateways | ["istio-ingress/services-gateway"] |
+| `virtualService.spec.http` | VirtualService HTTP configuration | [{route: [{destination: {host, port: {number}}}]}] |
 | `vault.create` | Enable Vault integration | true/false |
 | `vault.token` | Vault token | The token for Vault authentication. |
 | `vault.server` | Vault server URL | The Vault server address. |

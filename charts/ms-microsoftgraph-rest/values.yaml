@@ -35,23 +35,24 @@ ms-base:
 
   virtualService: 
     create: true
-    namespace: istio-ingress
-    hosts:
-      - services.codedesignplus.com
-    gateways:
-      - istio-ingress/istio-gateway
-    http:
-    - name: ms-microsoftgraph
-      match:
-      - uri:
-          prefix: /ms-microsoftgraph/
-      rewrite:
-        uri: /
-      route:
-      - destination:
-          host: ms-microsoftgraph-rest.codedesignplus.svc.cluster.local
-          port:
-            number: 5000
+    spec:
+      namespace: istio-ingress
+      hosts:
+        - services.codedesignplus.com
+      gateways:
+        - istio-ingress/istio-gateway
+      http:
+      - name: ms-microsoftgraph
+        match:
+        - uri:
+            prefix: /ms-microsoftgraph/
+        rewrite:
+          uri: /
+        route:
+        - destination:
+            host: ms-microsoftgraph-rest.codedesignplus.svc.cluster.local
+            port:
+              number: 5000
 
   vault:
     server: http://vault-internal.vault-operator.svc.cluster.local:8200

@@ -35,22 +35,23 @@ ms-base:
 
   virtualService: 
     create: true
-    hosts:
-      - services.codedesignplus.com
-    gateways:
-      - istio-ingress/istio-gateway
-    http:
-    - name: ms-tenants
-      match:
-      - uri:
-          prefix: /ms-tenants/
-      rewrite:
-        uri: /
-      route:
-      - destination:
-          host: ms-tenants-rest.codedesignplus.svc.cluster.local
-          port:
-            number: 5000
+    spec:
+      hosts:
+        - services.codedesignplus.com
+      gateways:
+        - istio-ingress/istio-gateway
+      http:
+      - name: ms-tenants
+        match:
+        - uri:
+            prefix: /ms-tenants/
+        rewrite:
+          uri: /
+        route:
+        - destination:
+            host: ms-tenants-rest.codedesignplus.svc.cluster.local
+            port:
+              number: 5000
 
   vault:
     server: http://vault-internal.vault-operator.svc.cluster.local:8200
