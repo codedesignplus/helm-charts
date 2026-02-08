@@ -17,8 +17,8 @@ maintainers:
     email: support@codedesignplus.com
     url: https://www.codedesignplus.com
 type: application
-version: 0.0.12
-appVersion: 0.0.12
+version: 0.0.16
+appVersion: 0.0.16
 dependencies:
   - name: ms-base
     version: 0.0.26
