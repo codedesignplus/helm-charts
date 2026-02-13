@@ -1,11 +1,11 @@
-# ms-payments-worker Helm Chart
+# ms-tenants-worker Helm Chart
 
-This chart provides the configuration for deploying the ms-payments-worker microservice in Kubernetes, based on the CodeDesignPlus SDK. It leverages the ms-base chart for best practices and common features such as deployment, service configuration, probes, autoscaling, Vault integration, Istio, and more.
+This chart provides the configuration for deploying the ms-tenants-worker microservice in Kubernetes, based on the CodeDesignPlus SDK. It leverages the ms-base chart for best practices and common features such as deployment, service configuration, probes, autoscaling, Vault integration, Istio, and more.
 
 ## Structure
 
 - **Chart.yaml**: Chart metadata.
-- **values.yaml**: Default and configurable values for ms-payments-worker.
+- **values.yaml**: Default and configurable values for ms-tenants-worker.
 
 ## Usage
 
@@ -14,7 +14,7 @@ This chart provides the configuration for deploying the ms-payments-worker micro
 3. Deploy using Helm:
 
 ```sh
-helm upgrade --install ms-payments-worker codedesignplus/ms-payments-worker \
+helm upgrade --install ms-tenants-worker codedesignplus/ms-tenants-worker \
     --namespace <namespace> \
     --set ms-base.vault.token=<vault-token> \
     --create-namespace
@@ -28,7 +28,7 @@ All configurable values available in `values.yaml` (inherited from ms-base):
 |-----|-------------|----------------|
 | `environment` | Deployment environment | Staging, Production |
 | `replicaCount` | Number of replicas | 1 |
-| `image.repository` | Container image | codedesignplus/ms-payments-worker |
+| `image.repository` | Container image | codedesignplus/ms-tenants-worker |
 | `image.pullPolicy` | Image pull policy | IfNotPresent, Always, Never |
 | `image.tag` | Image tag | latest |
 | `imagePullSecrets` | Secrets for pulling private images | [] |
@@ -89,13 +89,13 @@ ms-base:
   replicaCount: 1
 
   image:
-    repository: codedesignplus/ms-payments-worker
+    repository: codedesignplus/ms-tenants-worker
     pullPolicy: IfNotPresent
     tag: "latest"
 
   imagePullSecrets: []
-  fullnameOverride: "ms-payments-worker"
-  nameOverride: "ms-payments-worker"
+  fullnameOverride: "ms-tenants-worker"
+  nameOverride: "ms-tenants-worker"
 
   service:
     type: ClusterIP
@@ -126,6 +126,7 @@ ms-base:
     server: http://vault-internal.vault-operator.svc.cluster.local:8200
     solution: security-codedesignplus
 ```
+
 ## Requirements
 
 - Kubernetes >= 1.20

@@ -3,13 +3,13 @@ ms-base:
   replicaCount: 1
 
   image:
-    repository: codedesignplus/ms-payments-worker
+    repository: codedesignplus/ms-licenses-worker
     pullPolicy: IfNotPresent
     tag: "latest"
 
   imagePullSecrets: []
-  fullnameOverride: "ms-payments-worker"
-  nameOverride: "ms-payments-worker"
+  fullnameOverride: "ms-licenses-worker"
+  nameOverride: "ms-licenses-worker"
 
   service:
     type: ClusterIP
