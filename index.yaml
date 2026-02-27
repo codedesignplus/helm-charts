@@ -2845,6 +2845,35 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-licenses-worker-0.0.18/ms-licenses-worker-0.0.18.tgz
     version: 0.0.18
+  ms-locations-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.18
+    created: "2026-02-27T02:38:17.716993785Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.26
+    description: This is a Helm chart for the ms-locations-gRPC service
+    digest: e605fa3658e33c39edd53d19f5ac7def6437011887ca2b7184f3d0a2437d5989
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - catalogs
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-locations-grpc
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-locations-grpc-0.0.18/ms-locations-grpc-0.0.18.tgz
+    version: 0.0.18
   ms-locations-rest:
   - apiVersion: v2
     appVersion: 0.0.18
@@ -8646,4 +8675,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-13T20:07:43.816735047Z"
+generated: "2026-02-27T02:38:17.717784781Z"
