@@ -109,13 +109,13 @@ ms-base:
         targetPort: grpc
         protocol: TCP
 
-  resources: 
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
   autoscaling:
     enabled: true
