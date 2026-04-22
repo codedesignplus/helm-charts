@@ -67,7 +67,7 @@ spec:
               value: {{ .Values.environment | quote }}
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: "service.name={{ .Release.Name }},service.namespace={{ .Release.Namespace }},service.instance.id={{ .Release.Name }},deployment.environment={{ .Values.environment }}"
-            {{- if .Values.vault.create }}
+            {{- if and .Values.vault.create .Values.vault.token }}
             - name: VAULT__TOKEN
               valueFrom:
                 secretKeyRef:
@@ -87,6 +87,13 @@ spec:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-vaultserver
                   key: solution
+            {{- end }}
+            {{- if and .Values.vault.create (.Values.vault.roleSuffix) }}
+            - name: VAULT__KUBERNETES__ROLESUFFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-vaultserver
+                  key: roleSuffix
             {{- end }}
             {{- range .Values.env }}
             - name: {{ .name }}

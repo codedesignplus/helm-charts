@@ -169,6 +169,8 @@ vault:
   server: ""
   # The Vault solution to connect to secret (key-value store, database, rabbitmq or transit).
   solution: ""
+  # The Vault secret path to pull secrets from.
+  roleSuffix: "k8s-role"
 
 # This is for setting environment variables for the container.
 env: {}

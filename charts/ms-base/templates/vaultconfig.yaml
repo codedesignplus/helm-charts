@@ -6,4 +6,5 @@ metadata:
 data:
   server: {{ .Values.vault.server }}
   solution: {{ .Values.vault.solution }}
+  roleSuffix: {{ .Values.vault.roleSuffix }}
 {{- end -}}
