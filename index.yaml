@@ -5920,6 +5920,34 @@ entries:
     version: 0.0.4
   ms-payments-worker:
   - apiVersion: v2
+    appVersion: 0.0.20
+    created: "2026-05-25T15:58:15.492483316Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.29
+    description: This is a Helm chart for the ms-payments Worker service
+    digest: 94a346bc95a272da9fcccc0593193bc3feb966c551605da488f9c2269fa0e408
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - catalogs
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-payments-worker
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-payments-worker-0.0.20/ms-payments-worker-0.0.20.tgz
+    version: 0.0.20
+  - apiVersion: v2
     appVersion: 0.0.17
     created: "2026-02-08T21:29:49.620225393Z"
     dependencies:
@@ -10242,4 +10270,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-05-18T19:15:09.251974108Z"
+generated: "2026-05-25T15:58:15.493165081Z"
