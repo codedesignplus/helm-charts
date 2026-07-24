@@ -35,7 +35,11 @@ serviceAccount:
 
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-podAnnotations: {}
+podAnnotations:
+  profiles.grafana.com/memory.scrape: "true"
+  profiles.grafana.com/memory.port: "5000"
+  profiles.grafana.com/cpu.scrape: "true"
+  profiles.grafana.com/cpu.port: "5000"
 # This is for setting Kubernetes Labels to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
