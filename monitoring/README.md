@@ -1,215 +1,111 @@
-# Grafana Observability Stack — Self-Hosted en MicroK8s
+# Observabilidad — SigNoz self-hosted
 
 ## Arquitectura
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         GRAFANA (UI + Alerting)                          │
-│   Dashboards, Explore, Service Map, SLOs, Drilldown, Correlación        │
-│   https://services.kappali.com/grafana                                  │
-└──────────┬──────────────────────┬──────────────────────┬────────────────┘
-           │                      │                      │
-     ┌─────▼─────┐         ┌─────▼─────┐         ┌─────▼─────┐
-     │ Prometheus │         │   Loki    │         │   Tempo   │
-     │ (métricas) │         │  (logs)   │         │ (traces)  │
-     └─────▲─────┘         └─────▲─────┘         └─────▲─────┘
-           │                      │                      │
-           └──────────────────────┼──────────────────────┘
-                                  │
-                    ┌─────────────▼─────────────┐
-                    │       GRAFANA ALLOY        │
-                    │  (reemplaza OTel Collector) │
-                    │                            │
-                    │  • OTLP receiver (:4317)   │
-                    │  • Faro receiver (:12347)  │
-                    │  • Batch processor         │
-                    │  • Export → Tempo/Loki/Pro │
-                    └─────────────▲─────────────┘
-                                  │
-           ┌──────────────────────┼──────────────────────┐
-           │                      │                      │
-    ┌──────┴──────┐      ┌───────┴───────┐     ┌───────┴───────┐
-    │ 73 Microsvcs│      │ Kappali.Front │     │   Pyroscope   │
-    │ (.NET OTel) │      │ (Faro SDK)    │     │  (profiling)  │
-    └─────────────┘      └───────────────┘     └───────────────┘
+                        ┌──────────────────────────────┐
+                        │   SigNoz  (192.168.0.5)      │
+                        │   Docker Compose · v0.134.0  │
+                        │   UI 8080 · OTLP 4317/4318   │
+                        └───────▲──────────────▲───────┘
+                                │ gRPC 4317    │ HTTP 4318
+                                │              │
+        ┌───────────────────────┴───┐      ┌───┴─────────────────────────┐
+        │  signoz-k8s-infra-        │      │  Istio Gateway              │
+        │  otel-agent (DaemonSet)   │      │  signoz.kappali.com         │
+        │  ns: signoz               │      │  ServiceEntry signoz.external│
+        └───────────▲───────────────┘      └───▲─────────────────────────┘
+                    │ OTLP gRPC                │ OTLP HTTP + CORS
+                    │                          │
+        ┌───────────┴───────────┐   ┌──────────┴──────────────┐
+        │  ~72 microservicios   │   │  Kappali.Frontend       │
+        │  .NET (ms-*-rest,     │   │  (navegador del usuario)│
+        │  ms-*-worker)         │   │                         │
+        └───────────────────────┘   └─────────────────────────┘
 ```
 
-## Componentes Instalados
+Los dos caminos son distintos a proposito: los microservicios salen por el agente del cluster (red
+interna, gRPC), y el navegador sale por el ingress publico (HTTP, con CORS).
 
-| Componente | Chart | Namespace | Puerto | Función |
-|---|---|---|---|---|
-| **Grafana** | `grafana/grafana` | monitoring | 80 | UI, dashboards, alerting, Explore |
-| **Alloy** | `grafana/alloy` | monitoring | 4317, 4318, 12347 | Collector universal (OTLP + Faro + logs) |
-| **Tempo** | `grafana/tempo` | monitoring | 3200, 4317 | Almacén de traces distribuidos |
-| **Loki** | `grafana/loki` | monitoring | 3100 (gateway:80) | Almacén de logs centralizados |
-| **Prometheus** | `prometheus-community/prometheus` | monitoring | 80 | Almacén de métricas |
-| **Pyroscope** | `grafana/pyroscope` | monitoring | 4040 | Continuous profiling (flamegraphs) |
-| **k6-operator** | `grafana/k6-operator` | monitoring | - | Load testing distribuido en cluster |
+## Como se configura cada lado
 
-## Acceso
-
-| URL | Credenciales |
-|---|---|
-| `https://services.kappali.com/grafana` | admin / K4pp4l1-Gr4f4n4! |
-| `https://services.kappali.com/alloy/collect` | Faro endpoint (frontend RUM) |
-
-## Datasources Configurados en Grafana
-
-| Datasource | URL Interna | UID |
-|---|---|---|
-| Prometheus | `http://prometheus-server.monitoring.svc.cluster.local` | prometheus |
-| Loki | `http://loki-gateway.monitoring.svc.cluster.local` | loki |
-| Tempo | `http://tempo.monitoring.svc.cluster.local:3200` | tempo |
-| Pyroscope | `http://pyroscope.monitoring.svc.cluster.local:4040` | pyroscope |
-
-## Correlación entre Señales
-
-- **Tempo → Loki**: Traces a logs via `trace_id`
-- **Tempo → Prometheus**: Traces a métricas via span metrics
-- **Tempo → Pyroscope**: Traces a profiles
-- **Tempo → Service Graph**: Mapa de dependencias entre microservicios
-
-## Métricas Generadas por Tempo (metrics_generator)
-
-Tempo genera automáticamente métricas RED a partir de los traces:
-
-| Métrica | Tipo | Descripción |
-|---|---|---|
-| `traces_service_graph_request_total` | counter | Requests entre servicios (Service Map) |
-| `traces_service_graph_request_server_seconds_*` | histogram | Latencia server-side |
-| `traces_service_graph_request_client_seconds_*` | histogram | Latencia client-side |
-| `traces_spanmetrics_calls_total` | counter | Total de calls por servicio/operación |
-| `traces_spanmetrics_latency_*` | histogram | Latencia por operación |
-| `traces_spanmetrics_size_total` | counter | Tamaño de spans |
-
-Processors activos: `service-graphs`, `span-metrics`, `local-blocks`
-
-## Alloy — Configuración del Collector
-
-Alloy reemplaza el anterior OpenTelemetry Collector (`excellenceforge-opentelemetry-collector`). Actúa como punto único de ingesta para toda la telemetría:
-
-### Receivers
-- **OTLP gRPC** (`:4317`) — Microservicios .NET envían traces, métricas y logs
-- **OTLP HTTP** (`:4318`) — Alternativa HTTP
-- **Faro** (`:12347`) — Frontend Nuxt envía Web Vitals, errores JS, traces de navegación
-
-### Exporters
-- **Traces** → Tempo via OTLP (`tempo.monitoring:4317`)
-- **Logs** → Loki via HTTP (`loki-gateway.monitoring:80`)
-- **Métricas** → Prometheus via remote_write (`prometheus-server.monitoring:80`)
-
-### Migración Transparente
-
-Los microservicios apuntan a `alloy.monitoring.svc.cluster.local:4317` via las variables:
-```yaml
-LOGGER__OTELENDPOINT: http://alloy.monitoring.svc.cluster.local:4317
-OBSERVABILITY__SERVEROTEL: http://alloy.monitoring.svc.cluster.local:4317
-```
-
-También existe un ExternalName Service en el namespace `otel-collector` para backwards compatibility:
-```yaml
-excellenceforge-opentelemetry-collector.otel-collector.svc → alloy.monitoring.svc
-```
-
-## Profiling (Pyroscope)
-
-Los microservicios tienen pod annotations para que Pyroscope los descubra automáticamente:
+**Microservicios.** Dos variables en cada `charts/ms-*/Staging.yaml`:
 
 ```yaml
-podAnnotations:
-  profiles.grafana.com/memory.scrape: "true"
-  profiles.grafana.com/memory.port: "5000"
-  profiles.grafana.com/cpu.scrape: "true"
-  profiles.grafana.com/cpu.port: "5000"
+LOGGER__OTELENDPOINT:      http://signoz-k8s-infra-otel-agent.signoz.svc.cluster.local:4317
+OBSERVABILITY__SERVEROTEL: http://signoz-k8s-infra-otel-agent.signoz.svc.cluster.local:4317
 ```
 
-Estas annotations se definen en `helm-charts/charts/ms-base/values.yaml` y se heredan a todos los microservicios.
+El `service.name` sale de `{AppName}-{TypeEntryPoint}` (`ms-organization-rest`,
+`ms-parking-worker`), y `deployment.environment` de `{{ .Values.environment }}`. Lo arma
+`CodeDesignPlus.Net.Observability`, que propaga contexto en **W3C `traceparent`** — por eso la traza
+del navegador se une con la del backend sin nada extra.
 
-## RUM Frontend (Faro SDK)
+**Frontend.** No pasa por el agente: exporta directo a `https://signoz.kappali.com/v1/{traces,metrics,logs}`.
+El endpoint esta en `runtimeConfig.public.otlp` de `nuxt.config.ts`, y el arranque en
+`app/plugins/01.observability.client.ts`. Las reglas y las decisiones estan en
+[`../../rules/13-observabilidad.md`](../../rules/13-observabilidad.md).
 
-El frontend Nuxt (`Kappali.Frontend`) está instrumentado con Grafana Faro:
+## Istio
 
-- **Plugin**: `app/plugins/faro.client.ts`
-- **Paquetes**: `@grafana/faro-web-sdk`, `@grafana/faro-web-tracing`
-- **Endpoint**: `https://services.kappali.com/alloy/collect` → Alloy Faro receiver
-- **Datos capturados**: Web Vitals (LCP, CLS, INP), errores JS, traces de navegación, sessions
+[`istio-signoz.yaml`](istio-signoz.yaml) es una **copia byte a byte** del ServiceEntry, el
+VirtualService y la AuthorizationPolicy que exponen SigNoz. Ahi esta el `corsPolicy` que permite que
+el navegador exporte, y la `AuthorizationPolicy` que deniega cualquier metodo que no sea `POST` u
+`OPTIONS` sobre las rutas OTLP.
 
-## Load Testing (k6-operator)
-
-El k6-operator permite ejecutar tests de carga dentro del cluster como CRDs de Kubernetes.
-
-### Ejemplo de uso:
-```bash
-kubectl apply -f k6-example-configmap.yaml   # Script k6
-kubectl apply -f k6-example-testrun.yaml     # Ejecutar test
-kubectl get testrun -n monitoring -w          # Ver progreso
-```
-
-Los resultados se envían a Prometheus via remote_write y se visualizan en Grafana.
-
-## Archivos de Values
-
-| Archivo | Componente | Notas |
-|---|---|---|
-| `values-grafana.yaml` | Grafana | Datasources, dashboards, persistence, subpath `/grafana` |
-| `values-alloy.yaml` | Alloy | OTLP + Faro receivers, exporters a Tempo/Loki/Prometheus |
-| `values-tempo.yaml` | Tempo | Storage local, metrics_generator con 3 processors |
-| `values-loki.yaml` | Loki | SingleBinary mode, filesystem storage, sin cache |
-| `values-prometheus.yaml` | Prometheus | Remote write receiver, sin alertmanager/exporters |
-| `k6-example-configmap.yaml` | k6 | Script de ejemplo para load testing |
-| `k6-example-testrun.yaml` | k6 | CRD TestRun de ejemplo |
-
-## Helm Repos
+**Ningun pipeline la aplica.** El original vive en `/opt/signoz-foundry/istio-signoz.yaml` en
+`192.168.0.5` (`vm-monitoring`), y al cambiar algo hay que tocar los dos sitios. Para comprobar que
+la copia sigue reflejando la realidad:
 
 ```bash
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# Las tres lineas deben decir "unchanged". Si alguna dice "configured",
+# el cluster y este fichero se han separado.
+kubectl apply --dry-run=server -f helm-charts/monitoring/istio-signoz.yaml
+
+# Y que la copia no se ha separado del original de la maquina:
+ssh coded@192.168.0.5 cat /opt/signoz-foundry/istio-signoz.yaml \
+  | diff - helm-charts/monitoring/istio-signoz.yaml
 ```
 
-## Comandos de Gestión
+## Comprobaciones rapidas
 
 ```bash
-# Ver estado de todos los pods
-kubectl get pods -n monitoring
+# SigNoz vivo y con setup completo
+curl -sS https://signoz.kappali.com/api/v1/version
 
-# Upgrade de un componente (ejemplo: Tempo)
-helm upgrade tempo grafana/tempo -n monitoring -f values-tempo.yaml
+# El preflight del navegador pasa (200 + cabecera allow-origin)
+curl -sS -i -X OPTIONS https://signoz.kappali.com/v1/traces \
+  -H "Origin: https://services.kappali.com" \
+  -H "Access-Control-Request-Method: POST" | head -5
 
-# Ver logs de Alloy
-kubectl logs -n monitoring -l app.kubernetes.io/name=alloy -c alloy --tail=20
+# Cualquier metodo que no sea POST/OPTIONS se deniega (403)
+curl -sS -o /dev/null -w "%{http_code}\n" https://signoz.kappali.com/v1/traces
 
-# Reiniciar un componente
-kubectl rollout restart deployment alloy -n monitoring
-kubectl delete pod tempo-0 -n monitoring  # StatefulSet
-
-# Ver métricas generadas por Tempo
-kubectl exec -n monitoring tempo-0 -- wget -qO- "http://localhost:3200/metrics" | grep metrics_generator
-
-# Verificar traces en Tempo
-kubectl exec -n monitoring tempo-0 -- wget -qO- "http://localhost:3200/api/search?limit=5"
+# El agente del cluster esta arriba y sabe a donde exportar
+kubectl get pods -n signoz
+kubectl get ds signoz-k8s-infra-otel-agent -n signoz \
+  -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name=="OTEL_EXPORTER_OTLP_ENDPOINT")].value}'
 ```
 
-## Istio VirtualServices
+Un `POST` a `/v1/traces` que devuelve `200` **no** garantiza ingesta: hay que mirar el cuerpo.
+`{"partialSuccess":{}}` significa que entro todo; si trae `rejectedSpans`, SigNoz lo recibio y lo
+descarto.
 
-| VirtualService | Host | Path | Destino |
-|---|---|---|---|
-| `grafana-virtualservice` | services.kappali.com | `/grafana` | grafana.monitoring:80 |
-| `alloy-faro-virtualservice` | services.kappali.com | `/alloy/collect` | alloy.monitoring:12347 |
+## Ficheros historicos
 
-## Recursos del Stack
+Los `values-*.yaml` de este directorio (`grafana`, `alloy`, `tempo`, `loki`, `prometheus`) y los de
+`k6-*` son de la stack de Grafana que se uso antes. **Ya no corre nada de eso**: el namespace
+`monitoring` esta vacio, y `services.kappali.com/grafana` y `/alloy/collect` devuelven 404. Se
+conservan solo como referencia de lo que hubo; no reflejan el estado del cluster.
 
-| Componente | CPU req | RAM req | RAM limit | Storage |
-|---|---|---|---|---|
-| Alloy | 200m | 256 Mi | 512 Mi | - |
-| Tempo | 200m | 512 Mi | 1 Gi | 30 Gi |
-| Loki | 200m | 512 Mi | 1.5 Gi | 50 Gi |
-| Prometheus | 100m | 256 Mi | 512 Mi | 10 Gi |
-| Grafana | 100m | 256 Mi | 512 Mi | 5 Gi |
-| **Total** | **800m** | **1.8 Gi** | **4 Gi** | **95 Gi** |
+Conviene saber que la instrumentacion Faro del frontend que ese montaje asumia **nunca llego a
+existir**: habia configuracion en `nuxt.config.ts` pero ni dependencia ni plugin. El frontend estuvo
+sin instrumentar hasta la llegada de SigNoz.
 
-## Historial
+## Limitaciones conocidas
 
-- **2026-07-24**: Instalación inicial del stack completo
-- **Motivo**: Grafana Cloud free tier insuficiente (10 dashboards, 14 días retención, 50 GB/mes)
-- **Hallazgo crítico**: El OTel Collector anterior tenía un memory leak de 17.5 Gi (54% de RAM del servidor)
-- **Resultado**: RAM del servidor bajó de 93% a 45% después de eliminar OTel Collector + optimizar infra
+- **No hay session replay.** SigNoz no lo tiene y no hay equivalente.
+- **No hay profiling continuo.** Se perdio al retirar Pyroscope.
+- **Los stack traces del navegador llegan minificados.** Nuxt no emite sourcemaps de cliente en
+  produccion, y SigNoz solo admite subirlos con su propio SDK web, no por OTLP generico.
+- **SignalR no se instrumenta.** WebSockets con `skipNegotiation`, fuera del alcance de OTel.

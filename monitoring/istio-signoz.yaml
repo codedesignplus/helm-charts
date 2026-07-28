@@ -1,0 +1,127 @@
+# Exposicion de SigNoz (192.168.0.5) a traves del Gateway Istio existente.
+#
+# SigNoz vive FUERA del cluster, en vm-monitoring. Istio actua de proxy inverso
+# reutilizando el 443 que ya llega a 192.168.20.10 (MetalLB) y el certificado
+# wildcard *.kappali.com del secret tls-kappali.
+#
+# Requiere un registro DNS A:  signoz.kappali.com -> 190.27.134.222
+#
+# Aplicar con: kubectl apply -f istio-signoz.yaml
+---
+# Registra 192.168.0.5 en el registro de servicios de Istio. Sin esto el
+# Gateway no puede enrutar hacia un destino externo al cluster.
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: signoz-external
+  namespace: istio-ingress
+spec:
+  hosts:
+    - signoz.external
+  location: MESH_EXTERNAL
+  resolution: STATIC
+  ports:
+    - number: 8080
+      name: http-ui
+      protocol: HTTP
+    - number: 4318
+      name: http-otlp
+      protocol: HTTP
+    - number: 8000
+      name: http-mcp
+      protocol: HTTP
+  endpoints:
+    - address: 192.168.0.5
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: signoz
+  namespace: istio-ingress
+spec:
+  gateways:
+    - istio-ingress/istio-gateway
+  hosts:
+    - signoz.kappali.com
+  http:
+    # --- Ingesta OTLP/HTTP para el RUM del navegador (Fase 6) ---
+    # El navegador del usuario final no alcanza la IP privada, asi que esta
+    # es la unica via para la telemetria de frontend.
+    #
+    # OJO: el OTLP self-hosted NO tiene ingestion key (eso es exclusivo de
+    # SigNoz Cloud). El unico control de acceso es la AuthorizationPolicy
+    # de mas abajo. Sin ella, cualquiera en internet puede inyectar datos.
+    - name: otlp-ingest
+      match:
+        - uri:
+            prefix: /v1/traces
+        - uri:
+            prefix: /v1/logs
+        - uri:
+            prefix: /v1/metrics
+      route:
+        - destination:
+            host: signoz.external
+            port:
+              number: 4318
+      corsPolicy:
+        allowOrigins:
+          - exact: https://services.kappali.com
+          # Desarrollo local: `npm run dev` cambia de puerto si el 3000 esta
+          # ocupado, por eso va como regex y no como lista de puertos. No debilita
+          # nada, porque la ingesta OTLP ya acepta POST anonimo de cualquier cliente
+          # que no sea un navegador (curl incluido).
+          # Falta https://localhost para el build movil de Capacitor.
+          - regex: http://(localhost|127\.0\.0\.1):[0-9]+
+        allowMethods:
+          - POST
+          - OPTIONS
+        allowHeaders:
+          - content-type
+          - accept
+          # Imprescindible para correlacionar navegador -> backend .NET.
+          - traceparent
+          - tracestate
+          - baggage
+        maxAge: 24h
+
+    # --- UI y API de SigNoz ---
+    # Protegida por el propio login de SigNoz (JWT).
+    - name: signoz-ui
+      route:
+        - destination:
+            host: signoz.external
+            port:
+              number: 8080
+---
+# Restringe la ingesta publica. Permite solo POST/OPTIONS a las rutas OTLP;
+# todo lo demas hacia esas rutas queda denegado.
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: signoz-otlp-ingest
+  namespace: istio-ingress
+spec:
+  selector:
+    matchLabels:
+      istio: ingress
+  action: DENY
+  rules:
+    - to:
+        - operation:
+            # El puerto es OBLIGATORIO aqui. Un DENY con solo atributos HTTP
+            # hace que Istio deniegue TODO el trafico TCP bajo su alcance,
+            # lo que tumbaria los otros 4 dominios que sirve este mismo
+            # gateway (training-digital, codedesignplus.app/.com, kappali).
+            ports:
+              - "443"
+            hosts:
+              - signoz.kappali.com
+              - signoz.kappali.com:443
+            paths:
+              - /v1/traces*
+              - /v1/logs*
+              - /v1/metrics*
+            notMethods:
+              - POST
+              - OPTIONS
