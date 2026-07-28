@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-test-residents
+  namespace: monitoring
+data:
+  load-test.js: |
+    import { check, sleep } from 'k6';
+    import http from 'k6/http';
+    import { uuidv4 } from 'https://jslib.k6.io/k6-utils/1.4.0/index.js';
+
+    const BASE_URL = __ENV.K6_BASE_URL || 'http://ms-residents-rest.kappali.svc.cluster.local:5000';
+    const TOKEN = __ENV.K6_AUTH_TOKEN || 'Bearer <token>';
+    const TENANT_ID = __ENV.K6_TENANT_ID || uuidv4();
+
+    const params = {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Tenant': TENANT_ID,
+        'Authorization': TOKEN,
+      },
+    };
+
+    export const options = {
+      discardResponseBodies: true,
+      scenarios: {
+        load: {
+          executor: 'constant-arrival-rate',
+          duration: '60s',
+          rate: 10,
+          timeUnit: '1s',
+          preAllocatedVUs: 3,
+          maxVUs: 50,
+        },
+      },
+      thresholds: {
+        http_req_duration: ['p(95)<500'],
+        http_req_failed: ['rate<0.01'],
+      },
+    };
+
+    export default function () {
+      let response = http.get(`${BASE_URL}/api/Resident`, params);
+
+      check(response, {
+        'is status 200': (r) => r.status === 200,
+        'response time < 500ms': (r) => r.timings.duration < 500,
+      });
+
+      sleep(0.1);
+    }

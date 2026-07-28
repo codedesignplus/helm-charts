@@ -1,0 +1,80 @@
+tempo:
+  storage:
+    trace:
+      backend: local
+      local:
+        path: /var/tempo/traces
+  metricsGenerator:
+    enabled: true
+    remoteWriteUrl: "http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write"
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:4318
+
+# Override Tempo config directly to enable service graphs
+config: |
+  multitenancy_enabled: false
+  usage_report:
+    reporting_enabled: false
+  compactor:
+    compaction:
+      block_retention: 48h
+  distributor:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+  ingester: {}
+  server:
+    http_listen_port: 3200
+  storage:
+    trace:
+      backend: local
+      local:
+        path: /var/tempo/traces
+      wal:
+        path: /var/tempo/wal
+  metrics_generator:
+    ring:
+      kvstore:
+        store: inmemory
+    storage:
+      path: /var/tempo/generator/wal
+      remote_write:
+        - url: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
+          send_exemplars: true
+    processor:
+      service_graphs:
+        dimensions:
+          - service.namespace
+      span_metrics:
+        dimensions:
+          - service.namespace
+  overrides:
+    metrics_generator_processors:
+      - service-graphs
+      - span-metrics
+      - local-blocks
+
+persistence:
+  enabled: true
+  size: 30Gi
+  storageClassName: microk8s-hostpath
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 1Gi
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+
+extraArgs:
+  - -mem-ballast-size-mbs=256

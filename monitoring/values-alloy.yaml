@@ -1,0 +1,123 @@
+alloy:
+  configMap:
+    content: |
+      // ===== Faro Receiver (RUM frontend) =====
+      faro.receiver "default" {
+        server {
+          listen_address = "0.0.0.0"
+          listen_port = 12347
+          cors_allowed_origins = ["*"]
+        }
+        output {
+          logs   = [loki.write.default.receiver]
+          traces = [otelcol.exporter.otlp.tempo.input]
+        }
+      }
+
+      // ===== OTLP Receiver (microservicios .NET) =====
+      otelcol.receiver.otlp "default" {
+        grpc {
+          endpoint = "0.0.0.0:4317"
+        }
+        http {
+          endpoint = "0.0.0.0:4318"
+        }
+        output {
+          traces  = [otelcol.processor.batch.default.input]
+          metrics = [otelcol.processor.batch.default.input]
+          logs    = [otelcol.processor.batch.default.input]
+        }
+      }
+
+      // ===== Processor =====
+      otelcol.processor.batch "default" {
+        output {
+          traces  = [otelcol.exporter.otlp.tempo.input]
+          metrics = [otelcol.exporter.prometheus.default.input]
+          logs    = [otelcol.exporter.loki.default.input]
+        }
+      }
+
+      // ===== Export Traces to Tempo =====
+      otelcol.exporter.otlp "tempo" {
+        client {
+          endpoint = "tempo.monitoring.svc.cluster.local:4317"
+          tls {
+            insecure = true
+          }
+        }
+      }
+
+      // ===== Export Logs to Loki =====
+      otelcol.exporter.loki "default" {
+        forward_to = [loki.write.default.receiver]
+      }
+
+      loki.write "default" {
+        endpoint {
+          url = "http://loki-gateway.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }
+
+      // ===== Export Metrics to Prometheus =====
+      otelcol.exporter.prometheus "default" {
+        forward_to = [prometheus.remote_write.default.receiver]
+      }
+
+      prometheus.remote_write "default" {
+        endpoint {
+          url = "http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write"
+        }
+      }
+
+      // ===== Kubernetes Monitoring =====
+
+      // Scrape kube-state-metrics
+      prometheus.scrape "kube_state_metrics" {
+        targets = [{
+          __address__ = "kube-state-metrics.monitoring.svc.cluster.local:8080",
+        }]
+        forward_to = [prometheus.remote_write.default.receiver]
+      }
+
+      // Scrape node-exporter
+      prometheus.scrape "node_exporter" {
+        targets = [{
+          __address__ = "node-exporter-prometheus-node-exporter.monitoring.svc.cluster.local:9100",
+        }]
+        forward_to = [prometheus.remote_write.default.receiver]
+      }
+
+      // Scrape kubelet/cadvisor metrics
+      prometheus.scrape "kubelet" {
+        targets = [{
+          __address__ = "192.168.20.2:10255",
+        }]
+        metrics_path = "/metrics/cadvisor"
+        forward_to = [prometheus.remote_write.default.receiver]
+      }
+  extraPorts:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+      protocol: TCP
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
+      protocol: TCP
+    - name: faro
+      port: 12347
+      targetPort: 12347
+      protocol: TCP
+
+controller:
+  type: deployment
+  replicas: 1
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

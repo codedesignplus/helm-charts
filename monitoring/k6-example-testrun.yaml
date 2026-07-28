@@ -1,0 +1,24 @@
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: load-test-residents
+  namespace: monitoring
+spec:
+  parallelism: 1
+  script:
+    configMap:
+      name: k6-test-residents
+      file: load-test.js
+  runner:
+    env:
+      - name: K6_PROMETHEUS_RW_SERVER_URL
+        value: "http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write"
+      - name: K6_TENANT_ID
+        value: "your-tenant-uuid-here"
+      - name: K6_AUTH_TOKEN
+        value: "Bearer <your-jwt-token>"
+      - name: K6_BASE_URL
+        value: "http://ms-residents-rest.kappali.svc.cluster.local:5000"
+    metadata:
+      annotations:
+        ambient.istio.io/redirection: disabled

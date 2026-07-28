@@ -1,0 +1,133 @@
+persistence:
+  enabled: true
+  size: 5Gi
+  storageClassName: microk8s-hostpath
+
+adminUser: admin
+adminPassword: "K4pp4l1-Gr4f4n4!"
+
+grafana.ini:
+  server:
+    root_url: "https://services.kappali.com/grafana"
+    serve_from_sub_path: true
+
+initChownData:
+  enabled: false
+
+securityContext:
+  runAsUser: 472
+  runAsGroup: 472
+  fsGroup: 472
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc.cluster.local
+        isDefault: true
+        uid: prometheus
+      - name: Loki
+        type: loki
+        url: http://loki-gateway.monitoring.svc.cluster.local
+        uid: loki
+      - name: Tempo
+        type: tempo
+        url: http://tempo.monitoring.svc.cluster.local:3200
+        uid: tempo
+        jsonData:
+          tracesToLogsV2:
+            datasourceUid: loki
+            filterByTraceID: true
+          tracesToMetrics:
+            datasourceUid: prometheus
+          tracesToProfiles:
+            datasourceUid: pyroscope
+          serviceMap:
+            datasourceUid: prometheus
+          nodeGraph:
+            enabled: true
+      - name: Pyroscope
+        type: grafana-pyroscope-datasource
+        url: http://pyroscope.monitoring.svc.cluster.local:4040
+        uid: pyroscope
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    # .NET Runtime Metrics
+    dotnet-runtime:
+      gnetId: 19924
+      revision: 1
+      datasource: Prometheus
+    # ASP.NET Core
+    aspnet-core:
+      gnetId: 19925
+      revision: 1
+      datasource: Prometheus
+    # MongoDB Overview
+    mongodb:
+      gnetId: 2583
+      revision: 2
+      datasource: Prometheus
+    # RabbitMQ Overview
+    rabbitmq:
+      gnetId: 10991
+      revision: 12
+      datasource: Prometheus
+    # Redis Dashboard
+    redis:
+      gnetId: 11835
+      revision: 1
+      datasource: Prometheus
+    # Kubernetes Cluster Overview
+    k8s-cluster:
+      gnetId: 7249
+      revision: 1
+      datasource: Prometheus
+    # Kubernetes Pods
+    k8s-pods:
+      gnetId: 6781
+      revision: 1
+      datasource: Prometheus
+    # Kubernetes Namespace Resources
+    k8s-namespace:
+      gnetId: 15758
+      revision: 1
+      datasource: Prometheus
+    # Node Exporter Full
+    node-exporter:
+      gnetId: 1860
+      revision: 37
+      datasource: Prometheus
+    # Loki Logs
+    loki-logs:
+      gnetId: 13639
+      revision: 2
+      datasource: Loki
+    # Tempo Traces
+    tempo-service-graph:
+      gnetId: 16781
+      revision: 1
+      datasource: Tempo
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
