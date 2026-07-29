@@ -1,0 +1,1345 @@
+{
+  "description": "Dashboard for rabbitmq metrics provided by (rabbitmqreceiver)[https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/rabbitmqreceiver]",
+  "layout": [
+    {
+      "h": 8,
+      "i": "22e5de9f-557c-4d9a-9cbf-cb113653dd28",
+      "moved": false,
+      "static": false,
+      "w": 12,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "h": 6,
+      "i": "04846f5a-1e94-43b6-84bf-80daa5dcd412",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 0,
+      "y": 8
+    },
+    {
+      "h": 6,
+      "i": "95f37a4c-7d09-4a00-bb46-b4fe71f0a6b3",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 6,
+      "y": 8
+    },
+    {
+      "h": 6,
+      "i": "7984e920-e4d7-4bd3-8f5d-2f2bcddea70e",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 0,
+      "y": 14
+    },
+    {
+      "h": 6,
+      "i": "145037c6-658f-453b-8103-856bdd194ce8",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 6,
+      "y": 14
+    },
+    {
+      "h": 6,
+      "i": "bc975ee6-b34a-4840-9d51-4035196f95f2",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 0,
+      "y": 20
+    },
+    {
+      "h": 6,
+      "i": "8b15e4aa-f2a1-44fe-9d6c-d873f93ee750",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 6,
+      "y": 20
+    },
+    {
+      "h": 8,
+      "i": "ea92bda1-d68d-427e-a352-221f25c9bff9",
+      "moved": false,
+      "static": false,
+      "w": 12,
+      "x": 0,
+      "y": 26
+    },
+    {
+      "h": 5,
+      "i": "69503ca9-a278-40fa-8103-1353799103df",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 0,
+      "y": 34
+    },
+    {
+      "h": 5,
+      "i": "1e7916e8-0f90-48c7-a9dd-357e4b0029fe",
+      "moved": false,
+      "static": false,
+      "w": 6,
+      "x": 6,
+      "y": 34
+    },
+    {
+      "h": 8,
+      "i": "dbeeb23d-009c-4ea8-93c3-10ce6bfcf665",
+      "moved": false,
+      "static": false,
+      "w": 12,
+      "x": 0,
+      "y": 39
+    }
+  ],
+  "panelMap": {},
+  "tags": [
+    "rabbitmq",
+    "otel",
+    "queue"
+  ],
+  "title": "RabbitMQ Metricsl (OTEL)",
+  "uploadedGrafana": false,
+  "variables": {},
+  "version": "v5",
+  "widgets": [
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "04846f5a-1e94-43b6-84bf-80daa5dcd412",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.published",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "increase"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.queue.name}}",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "113abae9-b732-42d0-835f-bc6a5b6e46aa",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Queue Published Messages (top 20)",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "columnWidths": {
+        "C": 145,
+        "D": 145,
+        "rabbitmq.queue.name": 145
+      },
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "22e5de9f-557c-4d9a-9cbf-cb113653dd28",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "table",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.published",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "increase"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "published",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            },
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.current",
+                  "reduceTo": "last",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "B",
+              "filter": {
+                "expression": "state = 'unacknowledged'"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "unack",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "B",
+              "stepInterval": 60
+            },
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.current",
+                  "reduceTo": "last",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "C",
+              "filter": {
+                "expression": "state = 'ready'"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "ready",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "C",
+              "stepInterval": 60
+            },
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.consumer.count",
+                  "reduceTo": "last",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "D",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "consumers",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "D",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "dd0aadc7-dd5a-46fd-bb0e-54745ed5084b",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Queues overview",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "bc975ee6-b34a-4840-9d51-4035196f95f2",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.acknowledged",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "increase"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.queue.name}}",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "f01e9fa7-b204-420b-b1da-feaa50ac932e",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Messages Acknowledged",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "7984e920-e4d7-4bd3-8f5d-2f2bcddea70e",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.current",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filter": {
+                "expression": "state = 'unacknowledged'"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.queue.name}}",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "d196e4e3-2119-443f-98f7-cdc17ee4fa2d",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Unack Messages By Queue",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "columnWidths": {
+        "A": 145,
+        "rabbitmq.queue.name": 145
+      },
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "95f37a4c-7d09-4a00-bb46-b4fe71f0a6b3",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "table",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.published",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "increase"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "Total",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "bce9b667-fa25-4b4d-93e8-1c7ff18c85d5",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Published Messages (all)",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "columnWidths": {
+        "A": 145,
+        "rabbitmq.queue.name": 145
+      },
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "145037c6-658f-453b-8103-856bdd194ce8",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "table",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.current",
+                  "reduceTo": "last",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filter": {
+                "expression": "state = 'unacknowledged'"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "Count",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "6b37d9e4-af21-4173-b290-eb6ad964fa68",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Current Unack Messages By Queue",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "",
+      "fillSpans": false,
+      "id": "8b15e4aa-f2a1-44fe-9d6c-d873f93ee750",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.published",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "increase"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--tag--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.queue.name}}",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "9d4a5908-741c-41c8-8f4d-ad123e0233c2",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Messages Delivered",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "Porcentaje del high watermark (60% de la memoria configurada del pod). Al 100% RabbitMQ bloquea a todos los publishers.",
+      "fillSpans": false,
+      "id": "ea92bda1-d68d-427e-a352-221f25c9bff9",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.node.mem_used",
+                  "reduceTo": "avg",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "avg"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": true,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.node.name--string--resource--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.node.name",
+                  "type": "resource"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.node.name}} used",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            },
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.node.mem_limit",
+                  "reduceTo": "avg",
+                  "spaceAggregation": "avg",
+                  "temporality": null,
+                  "timeAggregation": "avg"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": true,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.node.name--string--resource--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.node.name",
+                  "type": "resource"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.node.name}} limit",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": [
+            {
+              "disabled": false,
+              "expression": "A / B * 100",
+              "legend": "{{rabbitmq.node.name}}",
+              "name": "F1",
+              "queryName": "F1"
+            }
+          ]
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "98dff64f-7c15-44ac-9151-5ee34c302f53",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [
+        {
+          "index": "9427a686-4a42-4084-8d04-5c8834ffb5e5",
+          "keyIndex": 0,
+          "label": "Aviso",
+          "moveThreshold": 75,
+          "thresholdColor": "Amber500",
+          "thresholdFormat": "Text",
+          "thresholdOperator": ">=",
+          "thresholdUnit": "percent",
+          "thresholdValue": 75
+        },
+        {
+          "index": "3d0a5c73-19a7-49bc-af4b-20462064c8f1",
+          "keyIndex": 1,
+          "label": "Critico",
+          "moveThreshold": 90,
+          "thresholdColor": "Red500",
+          "thresholdFormat": "Text",
+          "thresholdOperator": ">=",
+          "thresholdUnit": "percent",
+          "thresholdValue": 90
+        }
+      ],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Memoria por nodo (% del watermark)",
+      "yAxisUnit": "percent"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "Un valor de 1 en cualquiera de las series significa que RabbitMQ ha bloqueado publicaciones en todo el cluster para proteger ese recurso.",
+      "fillSpans": false,
+      "id": "69503ca9-a278-40fa-8103-1353799103df",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.node.mem_alarm",
+                  "reduceTo": "max",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.node.name--string--resource--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.node.name",
+                  "type": "resource"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "mem alarm - {{rabbitmq.node.name}}",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            },
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.node.disk_free_alarm",
+                  "reduceTo": "max",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "max"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.node.name--string--resource--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.node.name",
+                  "type": "resource"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "disk alarm - {{rabbitmq.node.name}}",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "fdadd85c-ca37-4938-bee8-ac1bb0101a3a",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Alarmas de nodo (memoria y disco)",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "Suma de rabbitmq.message.current en todas las colas cuyo nombre termina en .dlx.",
+      "fillSpans": false,
+      "id": "1e7916e8-0f90-48c7-a9dd-357e4b0029fe",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "value",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.current",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "avg"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [
+                  {
+                    "id": "dce232d5-453d-46b0-8947-7594f2094e82",
+                    "key": {
+                      "dataType": "string",
+                      "id": "rabbitmq.queue.name--string--resource--false",
+                      "isColumn": false,
+                      "isJSON": false,
+                      "key": "rabbitmq.queue.name",
+                      "type": "resource"
+                    },
+                    "op": "contains",
+                    "value": ".dlx"
+                  }
+                ],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [],
+              "having": {
+                "expression": ""
+              },
+              "legend": "mensajes en DLQ",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "a89c5ece-afda-4df2-8cf3-d2fe38ab6245",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [
+        {
+          "index": "8910a987-d23e-415a-998e-1c0468178557",
+          "keyIndex": 0,
+          "label": "Aviso",
+          "moveThreshold": 1,
+          "thresholdColor": "Amber500",
+          "thresholdFormat": "Background",
+          "thresholdOperator": ">=",
+          "thresholdUnit": "none",
+          "thresholdValue": 1
+        },
+        {
+          "index": "5e61968f-c470-48e0-9cb2-cb67ac33d27f",
+          "keyIndex": 1,
+          "label": "Critico",
+          "moveThreshold": 50,
+          "thresholdColor": "Red500",
+          "thresholdFormat": "Background",
+          "thresholdOperator": ">=",
+          "thresholdUnit": "none",
+          "thresholdValue": 50
+        }
+      ],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Mensajes en DLQs",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "customLegendColors": {},
+      "description": "Colas .dlx ordenadas por profundidad. Cortadas a 20 filas.",
+      "fillSpans": false,
+      "id": "dbeeb23d-009c-4ea8-93c3-10ce6bfcf665",
+      "isLogScale": false,
+      "isStacked": false,
+      "legendPosition": "bottom",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "table",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "rabbitmq.message.current",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": null,
+                  "timeAggregation": "avg"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filters": {
+                "items": [
+                  {
+                    "id": "5ba73760-eb9e-4709-87ae-b2944b3fc35c",
+                    "key": {
+                      "dataType": "string",
+                      "id": "rabbitmq.queue.name--string--resource--false",
+                      "isColumn": false,
+                      "isJSON": false,
+                      "key": "rabbitmq.queue.name",
+                      "type": "resource"
+                    },
+                    "op": "contains",
+                    "value": ".dlx"
+                  }
+                ],
+                "op": "AND"
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "rabbitmq.queue.name--string--resource--false",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "rabbitmq.queue.name",
+                  "type": "resource"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "{{rabbitmq.queue.name}}",
+              "limit": 20,
+              "orderBy": [
+                {
+                  "columnName": "#SIGNAL#",
+                  "order": "desc"
+                }
+              ],
+              "queryName": "A",
+              "stepInterval": 60
+            }
+          ],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "32bac40d-6547-46d4-803d-9ca931489dca",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder"
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "softMax": 0,
+      "softMin": 0,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Top DLQs por mensajes",
+      "yAxisUnit": "none"
+    }
+  ]
+}
