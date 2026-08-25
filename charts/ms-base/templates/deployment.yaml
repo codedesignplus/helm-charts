@@ -46,9 +46,31 @@ spec:
               containerPort: {{ .port }}
               protocol: {{ .protocol | default "TCP" }}
             {{- end }}
-          {{- with .Values.startupProbe }}
+          {{- if .Values.startupProbe }}
+          {{/*
+            EL PUERTO SE HEREDA DE livenessProbe, y no es una comodidad.
+
+            Cada microservicio nombra su puerto a su manera -- "http" en unos,
+            "rest" o "grpc" en otros -- y fijar uno por defecto aqui rompe a los
+            demas de la peor forma: el kubelet no resuelve el nombre, la sonda
+            queda en estado DESCONOCIDO y el pod no pasa a listo NUNCA, sin
+            reiniciar y sin dar error.
+
+              Startup probe errored: strconv.Atoi: parsing "http": invalid syntax
+
+            La aplicacion esta sana -- /health/ready responde Healthy desde
+            dentro -- pero el pod se queda en 0/1 indefinidamente. Paso en 31
+            microservicios a la vez.
+
+            Heredando el puerto de la sonda de vida, que cada chart ya define
+            bien, el problema no puede repetirse.
+          */}}
           startupProbe:
-            {{- toYaml . | nindent 12 }}
+            {{- $sp := deepCopy .Values.startupProbe }}
+            {{- if and .Values.livenessProbe.httpGet $sp.httpGet }}
+            {{- $_ := set $sp.httpGet "port" .Values.livenessProbe.httpGet.port }}
+            {{- end }}
+            {{- toYaml $sp | nindent 12 }}
           {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:

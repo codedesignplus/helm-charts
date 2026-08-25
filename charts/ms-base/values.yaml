@@ -120,6 +120,9 @@ resources: {}
 startupProbe:
   httpGet:
     path: /health/live
+    # El puerto lo pone la plantilla copiandolo de livenessProbe: cada chart
+    # nombra el suyo distinto ("http", "rest", "grpc") y fijarlo aqui deja la
+    # sonda en estado desconocido y el pod en 0/1 para siempre.
     port: http
   periodSeconds: 5
   failureThreshold: 30
