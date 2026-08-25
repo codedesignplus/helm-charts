@@ -104,7 +104,26 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# SONDAS. El orden importa: mientras startupProbe no pasa, las otras dos ni
+# siquiera se ejecutan.
+#
+# POR QUE HACE FALTA startupProbe. Sin ella, livenessProbe empieza a medir
+# desde el segundo cero: con period 10 y failureThreshold 3, el microservicio
+# tiene unos 30 segundos para responder o el kubelet lo mata. Un micro de .NET
+# tiene que autenticarse contra Vault, leer sus secretos y conectar Mongo,
+# RabbitMQ y Redis antes de escuchar. En un nodo tranquilo llega; en uno
+# cargado, no -- y entra en un bucle que NO SE RECUPERA SOLO: lo matan,
+# reinicia, arrancar consume CPU, el nodo se carga mas, lo vuelven a matar.
+#
+# Con 30 intentos cada 5 segundos son 150 segundos de margen para arrancar,
+# y la vigilancia de liveness sigue siendo estricta DESPUES.
+startupProbe:
+  httpGet:
+    path: /health/live
+    port: http
+  periodSeconds: 5
+  failureThreshold: 30
+
 livenessProbe:
   httpGet:
     path: /health/live
@@ -113,6 +132,14 @@ readinessProbe:
   httpGet:
     path: /health/ready
     port: http
+
+# Ver templates/pdb.yaml. Apagado por defecto porque con una sola replica un
+# PDB bloquea el drenaje del nodo indefinidamente.
+podDisruptionBudget:
+  enabled: false
+  # Uno u otro, no los dos. Si se indica minAvailable, manda ese.
+  maxUnavailable: 1
+  # minAvailable: 1
 
 # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:

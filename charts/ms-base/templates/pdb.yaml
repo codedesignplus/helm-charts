@@ -1,0 +1,41 @@
+{{/*
+PodDisruptionBudget: cuantos pods pueden quedar fuera a la vez durante una
+interrupcion VOLUNTARIA -- drenar un nodo, rotar el pool, actualizar el
+cluster.
+
+NO protege de caidas: si el pod se muere, se muere. Lo que hace es impedir que
+"kubectl drain" o una actualizacion de AKS se lleven por delante todas las
+replicas de un microservicio a la vez.
+
+APAGADO POR DEFECTO, y no por descuido: con replicaCount 1 un PDB que exija un
+pod disponible BLOQUEA EL DRENAJE del nodo para siempre, porque no hay forma de
+mover ese unico pod sin dejar el servicio a cero. Kubernetes se queda esperando
+y el drenaje no termina nunca.
+
+Asi que solo tiene sentido activarlo donde de verdad haya mas de una replica,
+sea por replicaCount o porque el autoescalado tenga minReplicas > 1.
+*/}}
+{{- if .Values.podDisruptionBudget.enabled }}
+{{- $replicas := .Values.replicaCount | int }}
+{{- if .Values.autoscaling.enabled }}
+{{- $replicas = .Values.autoscaling.minReplicas | int }}
+{{- end }}
+{{- if lt $replicas 2 }}
+{{- fail (printf "podDisruptionBudget.enabled requiere al menos 2 replicas y hay %d: con una sola, el PDB bloquea el drenaje del nodo indefinidamente." $replicas) }}
+{{- end }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "ms-base.fullname" . }}
+  labels:
+    {{- include "ms-base.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- else }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable | default 1 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ms-base.selectorLabels" . | nindent 6 }}
+{{- end }}
