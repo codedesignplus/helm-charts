@@ -14,19 +14,37 @@ ms-base:
   service:
     type: ClusterIP
     port: 5000
-  resources: {}
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+  resources:
+    # MEDIDO sobre 76 pods en staging: mediana 109 MiB, p95 135, maximo 164.
+    #
+    # Sin peticiones el planificador cree que el pod no ocupa nada y los
+    # amontona: se llego a 61 pods en un nodo y 21 en otro, con el primero al
+    # 109% de memoria matando procesos del sistema.
+    #
+    # SIN LIMITE DE CPU A PROPOSITO: estrangula el arranque, que es cuando el
+    # micro mas CPU necesita, y hace que la sonda lo mate antes de terminar.
+    requests:
+      cpu: 25m
+      memory: 128Mi
+    limits:
+      memory: 320Mi
 
   autoscaling:
     enabled: true
     minReplicas: 1
     maxReplicas: 5
-    targetMemoryUtilizationPercentage: 80
+    # ESCALA POR CPU, NO POR MEMORIA, y el motivo importa.
+    #
+    # El HPA calcula el porcentaje contra la PETICION. Un micro de .NET reserva
+    # memoria y no la devuelve, asi que con 109 MiB de uso sobre 128Mi pedidos
+    # da 85%: por encima de cualquier objetivo razonable, con la CPU al 2%.
+    #
+    # Y escalar no lo arregla: cada replica nueva arranca igual de alta, el
+    # promedio no baja y sube hasta maxReplicas sin que haya carga. Se vio en
+    # ms-microsoftgraph, con 4 replicas y la CPU al 2%.
+    #
+    # La memoria aqui es una linea base del runtime, no una senal de carga.
+    targetCPUUtilizationPercentage: 80
 
   virtualService: 
     create: false
