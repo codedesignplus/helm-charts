@@ -3,6 +3,32 @@ entries:
   ms-base:
   - apiVersion: v2
     appVersion: 0.0.31
+    created: "2026-08-25T02:58:57.056362583Z"
+    description: This is a Helm chart for the ms-base service, which provides common
+      functionality for microservices.
+    digest: 95a559c290acd8e385d873782de15eee1a5b71aca6f7d2479d29fd3cf21a44fd
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - catalogs
+    - istio
+    kubeVersion: '>= 1.32.0-0'
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-base
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-base-0.0.32/ms-base-0.0.32.tgz
+    version: 0.0.32
+  - apiVersion: v2
+    appVersion: 0.0.31
     created: "2026-08-25T00:21:30.56646505Z"
     description: This is a Helm chart for the ms-base service, which provides common
       functionality for microservices.
@@ -12031,4 +12057,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-08-25T00:29:38.667988563Z"
+generated: "2026-08-25T02:58:57.057694954Z"
