@@ -6625,6 +6625,35 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-notification-grpc-0.0.12/ms-notification-grpc-0.0.12.tgz
     version: 0.0.12
+  ms-notification-rest:
+  - apiVersion: v2
+    appVersion: 0.0.23
+    created: "2026-09-08T19:51:09.734711313Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.32
+    description: This is a Helm chart for the ms-payments REST service
+    digest: 23284c697ab928ebfac6977d0880c6700a7bf94e20d4c451eb291584fbd1b9bd
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - catalogs
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-notification-rest
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-notification-rest-0.0.24/ms-notification-rest-0.0.24.tgz
+    version: 0.0.24
   ms-payments-grpc:
   - apiVersion: v2
     appVersion: 0.0.23
@@ -12897,4 +12926,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-08-25T03:01:00.857058878Z"
+generated: "2026-09-08T19:51:09.735396571Z"
