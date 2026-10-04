@@ -2483,6 +2483,35 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-emails-worker-0.0.1/ms-emails-worker-0.0.1.tgz
     version: 0.0.1
+  ms-filestorage-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.23
+    created: "2026-10-04T18:49:42.05403936Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.32
+    description: This is a Helm chart for the ms-filestorage-gRPC service
+    digest: 88825fa60b828e88aa86ff9857d93f3adf1c4f34ea4883ff39015b2d0a5ea2ec
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - grpc
+    - api
+    - filestorage
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-filestorage-grpc
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-filestorage-grpc-0.0.24/ms-filestorage-grpc-0.0.24.tgz
+    version: 0.0.24
   ms-filestorage-rest:
   - apiVersion: v2
     appVersion: 0.0.23
@@ -12926,4 +12955,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-09-08T19:51:09.735396571Z"
+generated: "2026-10-04T18:49:42.055185589Z"
