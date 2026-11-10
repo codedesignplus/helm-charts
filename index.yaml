@@ -1052,6 +1052,93 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-catalogs-worker-0.0.1/ms-catalogs-worker-0.0.1.tgz
     version: 0.0.1
+  ms-electronicinvoicing-grpc:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2026-11-10T00:03:04.382578794Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.32
+    description: This is a Helm chart for the ms-electronicinvoicing-gRPC service
+    digest: 8bf9d09ae20361eb317db9adb18a4fee65487c59e588507f9ff340336f2d7efe
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - electronic-invoicing
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-electronicinvoicing-grpc
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-electronicinvoicing-grpc-0.0.1/ms-electronicinvoicing-grpc-0.0.1.tgz
+    version: 0.0.1
+  ms-electronicinvoicing-rest:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2026-11-10T00:03:04.539208948Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.32
+    description: This is a Helm chart for the ms-electronicinvoicing REST service
+    digest: 319594440100a88ff518cb413eac39705df42031d28edb8bae60db110bb30e51
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - electronic-invoicing
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-electronicinvoicing-rest
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-electronicinvoicing-rest-0.0.1/ms-electronicinvoicing-rest-0.0.1.tgz
+    version: 0.0.1
+  ms-electronicinvoicing-worker:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2026-11-10T00:03:04.736431874Z"
+    dependencies:
+    - name: ms-base
+      repository: https://www.codedesignplus.com/helm-charts/
+      version: 0.0.32
+    description: This is a Helm chart for the ms-electronicinvoicing Worker service
+    digest: c844a89bf5758ebaebb34b47d037c8d0518ec060365309bbf57a2d591ca8e451
+    home: https://www.codedesignplus.com
+    icon: https://raw.githubusercontent.com/codedesignplus/helm-charts/refs/heads/main/logo.png
+    keywords:
+    - microservice
+    - rest
+    - api
+    - electronic-invoicing
+    - istio
+    maintainers:
+    - email: support@codedesignplus.com
+      name: Codedesignplus
+      url: https://www.codedesignplus.com
+    name: ms-electronicinvoicing-worker
+    sources:
+    - https://github.com/codedesignplus/helm-charts
+    type: application
+    urls:
+    - https://github.com/codedesignplus/helm-charts/releases/download/ms-electronicinvoicing-worker-0.0.1/ms-electronicinvoicing-worker-0.0.1.tgz
+    version: 0.0.1
   ms-emails-grpc:
   - apiVersion: v2
     appVersion: 0.0.23
@@ -12955,4 +13042,4 @@ entries:
     urls:
     - https://github.com/codedesignplus/helm-charts/releases/download/ms-users-worker-0.0.1/ms-users-worker-0.0.1.tgz
     version: 0.0.1
-generated: "2026-10-04T18:49:42.055185589Z"
+generated: "2026-11-10T00:03:04.737110426Z"
